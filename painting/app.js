@@ -80,6 +80,9 @@
 // canvas.addEventListener("mousemove", onClick);
 
 //1.7 클릭하고 놓을때까지 
+const modeBtn = document.getElementById("mode-btn");
+const colorOptions = Array.from(document.getElementsByClassName("color-option"));
+console.log(colorOptions);
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector('canvas');
@@ -88,6 +91,8 @@ canvas.width = 800;
 canvas.height = 800;
 ctx.lineWidth = lineWidth.value;
 let isPainting = false;
+let isFilling = false;
+
 function onMove(event){
     if(isPainting){
         ctx.lineTo(event.offsetX, event.offsetY);
@@ -110,6 +115,27 @@ function onLineColor(event){
     ctx.strokeStyle = event.target.value;
     ctx.fillStyle = event.target.value;
 }
+function onColorClick(event){
+    const colorValue = event.target.dataset.color;
+    ctx.strokeStyle = colorValue;
+    ctx.fillStyle = colorValue;
+    color.value = colorValue;
+}
+function onModeClick(){
+    if(isFilling){
+        isFilling = false;
+        modeBtn.innerText = "Fill";
+    }else{
+        isFilling = true;
+        modeBtn.innerText = "Draw";
+    }
+}
+function onClick(){
+    if(isFilling){
+        ctx.fillRect(0, 0, 800, 800);
+    }
+}
+canvas.addEventListener("click", onClick);
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", onDown);
 canvas.addEventListener("mouseup", onUp);
@@ -117,4 +143,6 @@ canvas.addEventListener("mouseleave", onUp);
 lineWidth.addEventListener("change", onLineChange);
 color.addEventListener("change", onLineColor);
 
-//#2.4
+colorOptions.forEach(color => color.addEventListener("click", onColorClick));
+modeBtn.addEventListener("click", onModeClick);
+//#2.5 색 채우기
