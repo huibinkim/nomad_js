@@ -79,16 +79,19 @@
 // }
 // canvas.addEventListener("mousemove", onClick);
 
-//1.7 클릭하고 놓을때까지 
+//1.7 클릭하고 놓을때까지 //#2.5 색 채우기
+const fileInput = document.getElementById("fileInput");
+const eraserBtn = document.getElementById("erase-btn");
 const modeBtn = document.getElementById("mode-btn");
+const reBtn = document.getElementById("re-btn");
 const colorOptions = Array.from(document.getElementsByClassName("color-option"));
 console.log(colorOptions);
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext("2d");
-canvas.width = 800;
-canvas.height = 800;
+canvas.width = 400;
+canvas.height = 400;
 ctx.lineWidth = lineWidth.value;
 let isPainting = false;
 let isFilling = false;
@@ -132,9 +135,30 @@ function onModeClick(){
 }
 function onClick(){
     if(isFilling){
-        ctx.fillRect(0, 0, 800, 800);
+        ctx.fillRect(0, 0, 400, 400);
     }
 }
+function onReStart(){
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, 400, 400);
+}
+function onEraser(){
+    ctx.strokeStyle = "#fff";
+    isFilling = false;
+    modeBtn.innerText = "Fill";
+}
+//image 선택하여 가져와서 그림판에 사이즈맞게 올리기
+function onFileChange(event){
+    const file = event.target.files[0]; //파일가져오기
+    const url = URL.createObjectURL(file); //파일의 url 가져오기
+    const image = new Image(); //img생성
+    image.src = url;
+    image.onload = function(){
+        ctx.drawImage(image,0,0, 400, 400);
+        fileInput.value = null;
+    }
+}
+// canvas.onmousemove = function()
 canvas.addEventListener("click", onClick);
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", onDown);
@@ -143,6 +167,8 @@ canvas.addEventListener("mouseleave", onUp);
 lineWidth.addEventListener("change", onLineChange);
 color.addEventListener("change", onLineColor);
 
-colorOptions.forEach(color => color.addEventListener("click", onColorClick));
+colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
 modeBtn.addEventListener("click", onModeClick);
-//#2.5 색 채우기
+reBtn.addEventListener("click", onReStart);
+eraserBtn.addEventListener("click", onEraser);
+fileInput.addEventListener("change", onFileChange);
