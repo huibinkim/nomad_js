@@ -204,23 +204,44 @@
 // }
 // loginBtn.addEventListener("click", onBtnClick);
 
-// #4.3
-const loginForm = document.querySelector("#login-form");
-const loginInput = document.querySelector("#login-form input");
-const link = document.querySelector("#login-form + a")
-function onSubmit(event){
-    event.preventDefault(); //이 함수는 어떤 event의 브라우저가 기본적으로 하는 동작들을 막는것이다.
-    console.log(loginInput.value);
-    // const username = loginForm.value;
-    // console.log(username);
-};
+// #4.3 브라우저 기본동작 막기 2 (링크로 이동 막기)
 //javascript의 모든 eventLisnter function의 첫번째 argument(tomato)는 항상 지금 벌어진 event들에 대한 정보>object이다.
 //addeventlistener 안에 있는 함수는 직접 실행하지않고 브라우저가 한다. 또한 event에 대한 정보도 함께 준다. 우리는 자리를 만들어주면 된다.
-function linkClick(event){
-    event.preventDefault();
-}
-loginForm.addEventListener("submit", onSubmit);
-link.addEventListener("click", linkClick);
+// function linkClick(event){
+//     event.preventDefault();
+// }
+// link.addEventListener("click", linkClick);
+// 4.4 로그인하면 form 없애기
+const loginForm = document.querySelector("#login-form");
+const loginInput = document.querySelector("#login-form input");
+const greeting = document.querySelector("#greeting");
+const HIDDEN_CLASSNAME = "hidden";
+const USERNAME_KEY = "username";
+// const link = document.querySelector("#login-form + a")
 
-//#4.4 브라우저 기본동작 막기 2 (링크로 이동 막기)
+function onSubmit(event){
+    event.preventDefault(); //이 함수는 어떤 event의 브라우저가 기본적으로 하는 동작들을 막는것이다.
+    const writeUsername = loginInput.value;
+    localStorage.setItem(USERNAME_KEY, writeUsername);
+    loginForm.classList.add(HIDDEN_CLASSNAME);
+    paintGreeting(writeUsername);
+};
+//화면에 텍스트 보여주는 함수 
+function paintGreeting(username){
+    greeting.innerText = `hello ${username}`;
+    greeting.classList.remove(HIDDEN_CLASSNAME);
+};
+
+//로컬에 저장한 username으로 값이 있으면 h1을 보여주고 없으면 login-form을 보여준다.
+const savedUsername = localStorage.getItem(USERNAME_KEY); //key에 해당하는 value.
+if(savedUsername === null){
+    //show the form
+    loginForm.classList.remove(HIDDEN_CLASSNAME);
+    loginForm.addEventListener("submit", onSubmit);
+}else{
+    //show the greeting
+    paintGreeting(savedUsername);
+}
+
+
 

@@ -6,3 +6,7 @@
 .clicked{
     color: tomato;
 } */
+
+.hidden{
+    display: none;
+}
