@@ -117,9 +117,9 @@
 // title.innerText = "Hello"
 // title.style.color = "red";
 // console.dir(title);
-// function handleTitleClick(){
-//     title.style.color = "blue";
-// }
+// // function handleTitleClick(){
+// //     title.style.color = "blue";
+// // }
 // function handleMouse(){
 //     title.innerText = "Mouse is here"
 // }
@@ -159,14 +159,14 @@
 // const h1 = document.querySelector(".hello h1:first-child");
 
 // function handleTitleClick() {
-// //     const currentColor = h1.style.color;
-// //     let changeColor;
-// //    if(currentColor === "blue"){
-// //     changeColor = "tomato";
-// //    }else{
-// //     changeColor = "blue";
-// //    }
-// //    h1.style.color = changeColor;
+//     const currentColor = h1.style.color;
+//     let changeColor;
+//    if(currentColor === "blue"){
+//     changeColor = "tomato";
+//    }else{
+//     changeColor = "blue";
+//    }
+//    h1.style.color = changeColor;
 // }
 
 // h1.addEventListener("click", handleTitleClick);
@@ -174,7 +174,7 @@
 // #3.7-3/8
 // const h1 = document.querySelector(".hello h1:first-child");
 // function handleTitleClick() {
-//     // h1.className = "active"; //getter이면서 setter
+//     h1.className = "active"; //getter이면서 setter
 //     const clickedClass = "clicked";
 //     if(h1.classList.contains(clickedClass)){
 //         h1.classList.remove(clickedClass);
