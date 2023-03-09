@@ -80,6 +80,7 @@
 // canvas.addEventListener("mousemove", onClick);
 
 //1.7 클릭하고 놓을때까지 //#2.5 색 채우기 //#3.1 text추가버튼 넣기
+const saveBtn = document.getElementById("save-img");
 const textInput = document.getElementById("text");
 const fileInput = document.getElementById("fileInput");
 const eraserBtn = document.getElementById("erase-btn");
@@ -169,10 +170,20 @@ function onDoubleClick(event){
     if(text !== ""){
         ctx.save(); //현재 ctx의 상태를 모두 저장할 함수.
         ctx.lineWidth = 1; 
-        ctx.font = "48px serif"
+        ctx.font = "48px serif";
         ctx.fillText(text, event.offsetX, event.offsetY);
         ctx.restore(); //저장 전으로 돌아가므로 그 사이의 변경된 사항은 저장되지 않는다. 기존의 체크포인트로 돌아간다.
     }
+}
+function onSaveImg(event){
+    const url = canvas.toDataURL();  //canvas의 url을 생성
+    const a = document.createElement("a"); //a링크를 생성
+    console.log(url);
+    console.log(a);
+
+    a.href = url; //a 링크의 href를 canvas url로 변경
+    a.download = "myDrawing.png"; //a 링크 다운로드 이름 변경
+    a.click(); //a 링크 클릭하면 실행
 }
 
 // canvas.onmousemove = function()
@@ -190,3 +201,4 @@ modeBtn.addEventListener("click", onModeClick);
 reBtn.addEventListener("click", onReStart);
 eraserBtn.addEventListener("click", onEraser);
 fileInput.addEventListener("change", onFileChange);
+saveBtn.addEventListener("click", onSaveImg);
