@@ -15,3 +15,12 @@ body{
     height: 30px;
     cursor: pointer;
 }
+
+.select{
+   display:flex;
+   flex-direction:column;
+}
+
+button{
+    width:fit-content;
+}

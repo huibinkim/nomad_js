@@ -79,20 +79,24 @@
 // }
 // canvas.addEventListener("mousemove", onClick);
 
-//1.7 클릭하고 놓을때까지 //#2.5 색 채우기
+//1.7 클릭하고 놓을때까지 //#2.5 색 채우기 //#3.1 text추가버튼 넣기
+const textInput = document.getElementById("text");
 const fileInput = document.getElementById("fileInput");
 const eraserBtn = document.getElementById("erase-btn");
 const modeBtn = document.getElementById("mode-btn");
 const reBtn = document.getElementById("re-btn");
+
 const colorOptions = Array.from(document.getElementsByClassName("color-option"));
 console.log(colorOptions);
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext("2d");
+
 canvas.width = 400;
 canvas.height = 400;
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round";
 let isPainting = false;
 let isFilling = false;
 
@@ -158,7 +162,21 @@ function onFileChange(event){
         fileInput.value = null;
     }
 }
+//canvas를 더블클릭하면
+function onDoubleClick(event){
+    const text = textInput.value;
+    //글씨의 기본굵기가 5로 되어있어서 글씨가 안보임 그래서 text를 넣기 전에 lineWidth값을 변경해준다.
+    if(text !== ""){
+        ctx.save(); //현재 ctx의 상태를 모두 저장할 함수.
+        ctx.lineWidth = 1; 
+        ctx.font = "48px serif"
+        ctx.fillText(text, event.offsetX, event.offsetY);
+        ctx.restore(); //저장 전으로 돌아가므로 그 사이의 변경된 사항은 저장되지 않는다. 기존의 체크포인트로 돌아간다.
+    }
+}
+
 // canvas.onmousemove = function()
+canvas.addEventListener("dblclick", onDoubleClick);
 canvas.addEventListener("click", onClick);
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", onDown);
