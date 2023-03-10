@@ -115,6 +115,8 @@ function onDown(){
 }
 function onUp(){
     isPainting = false; //마우스를 뗐을 때
+    // ctx.fill(); 마우스를 뗏을 때 모양이 만들어짐.
+    // ctx.beginPath();
 }
 function onLineChange(event){
     ctx.lineWidth = event.target.value;
@@ -161,7 +163,7 @@ function onFileChange(event){
     image.onload = function(){
         ctx.drawImage(image,0,0, 400, 400);
         fileInput.value = null;
-    }
+    };
 }
 //canvas를 더블클릭하면
 function onDoubleClick(event){

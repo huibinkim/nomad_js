@@ -8,10 +8,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <canvas></canvas>
-    <input id="line-width" type="range" min="1" max="10" value="5" step="1">
-    
-    <div>
+   
+    <div class="color-options">
         <input type="color" id="color">
         <div class="color-option" style="background-color:#fc5c65;" data-color="#fc5c65"></div>
         <div class="color-option" style="background-color:#fd9644;" data-color="#fd9644"></div>
@@ -31,13 +29,20 @@
         <div class="color-option" style="background-color:#2d98da;" data-color="#2d98da"></div>    
     </div>
 
-    <div class="select">
+    <canvas></canvas>
+    <div class="btns">
+        <!-- <label for="range"></label> -->
+        <input id="line-width" type="range" min="1" max="10" value="5" step="1">
         <button id="mode-btn">Fill</button>
         <button id="re-btn">reStart</button>
         <button id="erase-btn">Erase</button>
-        <input type="file" accept="image/*" id="fileInput">
+        <label for="fileInput">
+            Add photo
+            <input type="file" accept="image/*" id="fileInput">
+        </label>
+        <input type="text" placeholder="Add text" id="text">
         <button id="save-img">save Image</button>
-        <input type="text" placeholder="Write and then double click" id="text">
+        
     </div>
     
 
