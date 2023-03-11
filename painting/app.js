@@ -87,8 +87,13 @@ const eraserBtn = document.getElementById("erase-btn");
 const modeBtn = document.getElementById("mode-btn");
 const reBtn = document.getElementById("re-btn");
 
+function changeValue(target){
+    const optionValue = target.options[target.selectedIndex].innerText;
+    console.log(optionValue);
+}   
+
 const colorOptions = Array.from(document.getElementsByClassName("color-option"));
-console.log(colorOptions);
+// console.log(colorOptions);
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector('canvas');
@@ -177,6 +182,10 @@ function onDoubleClick(event){
         ctx.restore(); //저장 전으로 돌아가므로 그 사이의 변경된 사항은 저장되지 않는다. 기존의 체크포인트로 돌아간다.
     }
 }
+//click하면 폰트 이름 변경
+function onChangeFont(event){
+
+}
 function onSaveImg(event){
     const url = canvas.toDataURL();  //canvas의 url을 생성
     const a = document.createElement("a"); //a링크를 생성
@@ -204,3 +213,8 @@ reBtn.addEventListener("click", onReStart);
 eraserBtn.addEventListener("click", onEraser);
 fileInput.addEventListener("change", onFileChange);
 saveBtn.addEventListener("click", onSaveImg);
+// selectOption.addEventListener("click", selectOptions);
+//select의 옵션을 선택하면 폰트-패밀리가 변경
+//1. option의 값을 찾는다.
+//2. 값을 변수로 지정하고, javascript의 font-famiily를 제어하는 곳에다 넣을 수 있게 조작?
+//3. 클릭하면 변경되는 함수를 만들어 도출
