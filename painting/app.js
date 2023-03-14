@@ -87,10 +87,6 @@ const eraserBtn = document.getElementById("erase-btn");
 const modeBtn = document.getElementById("mode-btn");
 const reBtn = document.getElementById("re-btn");
 
-function changeValue(target){
-    const optionValue = target.options[target.selectedIndex].innerText;
-    console.log(optionValue);
-}   
 
 const colorOptions = Array.from(document.getElementsByClassName("color-option"));
 // console.log(colorOptions);
@@ -182,6 +178,11 @@ function onDoubleClick(event){
         ctx.restore(); //저장 전으로 돌아가므로 그 사이의 변경된 사항은 저장되지 않는다. 기존의 체크포인트로 돌아간다.
     }
 }
+function changeValue(target){
+    const optionValue = target.options[target.selectedIndex].innerText;
+    console.log(optionValue);
+}   
+
 //click하면 폰트 이름 변경
 function onChangeFont(event){
 
