@@ -5,6 +5,7 @@
     // 두번째 인수는 호출된 function 간격을 몇 ms로 할지 정함.
 //setTimeout() = (호출하려는 함수, 기다리는 시간); 기다렸다가 한번만 나타남
 const clock = document.querySelector("h2#clock");
+clock.style.fontSize = "56px";
 function getDate() {
    const date = new Date();
    const second = String(date.getSeconds()).padStart(2, "0");
@@ -16,4 +17,6 @@ function getDate() {
 getDate(); //setInterval이 1초 있다가 실행하기때문에 그간격을 없애기 위해 호출
 setInterval(getDate, 1000);
 
+// container
+const con = document.querySelector("#wrap .container");
 
