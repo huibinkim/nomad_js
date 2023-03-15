@@ -41,12 +41,13 @@
             <input type="file" accept="image/*" id="fileInput">
         </label>
         <input type="text" placeholder="Add text" id="text">
+
         <form action="">
             <select onchange="changeValue(this)" name="font-select" id="font-select" >
                 <option value="" selected disabled hidden>choose font</option>
-                <option value="0" >sefif</option>
-                <option value="1" >ui</option>
-                <option value="2">idont</option>
+                <option class="font-option" value="0" >sefif</option>
+                <option class="font-option" value="1" >ui</option>
+                <option class="font-option" value="2">idont</option>
             </select>
         </form>
        
@@ -54,7 +55,6 @@
         
     </div>
     
-
     <script src="app.js"></script>
 </body>
 </html>

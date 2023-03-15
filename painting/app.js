@@ -87,7 +87,6 @@ const eraserBtn = document.getElementById("erase-btn");
 const modeBtn = document.getElementById("mode-btn");
 const reBtn = document.getElementById("re-btn");
 
-
 const colorOptions = Array.from(document.getElementsByClassName("color-option"));
 // console.log(colorOptions);
 const color = document.getElementById("color");
@@ -173,26 +172,29 @@ function onDoubleClick(event){
     if(text !== ""){
         ctx.save(); //현재 ctx의 상태를 모두 저장할 함수.
         ctx.lineWidth = 1; 
-        ctx.font = "48px serif";
+        ctx.font = "48px system-ui";
         ctx.fillText(text, event.offsetX, event.offsetY);
         ctx.restore(); //저장 전으로 돌아가므로 그 사이의 변경된 사항은 저장되지 않는다. 기존의 체크포인트로 돌아간다.
     }
 }
-function changeValue(target){
-    const optionValue = target.options[target.selectedIndex].innerText;
-    console.log(optionValue);
-}   
 
 //click하면 폰트 이름 변경
-function onChangeFont(event){
+function changeValue(){
+    const selectBtn = document.getElementById("font-select");
+    let selectValue = selectBtn.options[selectBtn.selectedIndex].value;
+    console.log(selectValue);
+    // const optionValue = target.options[target.selectedIndex].innerText; //font-family
+    
+    // ctx.font = "48px, optionValue"
+    // console.log(ctx.font)
+}   
 
-}
+
 function onSaveImg(event){
     const url = canvas.toDataURL();  //canvas의 url을 생성
     const a = document.createElement("a"); //a링크를 생성
     console.log(url);
     console.log(a);
-
     a.href = url; //a 링크의 href를 canvas url로 변경
     a.download = "myDrawing.png"; //a 링크 다운로드 이름 변경
     a.click(); //a 링크 클릭하면 실행
@@ -208,6 +210,7 @@ canvas.addEventListener("mouseleave", onUp);
 lineWidth.addEventListener("change", onLineChange);
 color.addEventListener("change", onLineColor);
 
+// selectBtn.forEach((option) => option.addEventListener("click", changeValue));
 colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
 modeBtn.addEventListener("click", onModeClick);
 reBtn.addEventListener("click", onReStart);
