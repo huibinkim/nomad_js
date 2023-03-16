@@ -11,15 +11,50 @@
     
     <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-    <script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        
         // html에 직접 작성하지 않음.
         //javascript로 작성한다. reactjs에서는 Js에서 시작하고 html으로 끝. 유저에게 보여줄 내용을 컨트롤 할수있다는 것이다.
         //react.js 는 엔진같이 interactive한 ui를 만들게 한다.
         //react-dom은 React element를 HTML에 두는 역할이다.
         //render() - 사용자에게 보여준다.
+        //createElement("첫번째 argument = html인자이름", 두번째는 props, 세번째는 content )
         const root = document.getElementById("root");
-        const span = React.createElement("span", {id:"span-show", style:{color:"blue"}}, "hello");
-        ReactDOM.render(span, root);
+        function Title() {
+            return(
+                <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+                hello
+                </h3>
+            );
+        } 
+        const Button = () => (
+            <button 
+                style={{backgroundColor:"pink",}} 
+                onClick={()=> console.log("click")}
+            >
+                click
+            </button>
+        );
+        const Container = () => (
+            <div>
+                <Title/>
+                <Button/>
+            </div>
+        )
+        ReactDOM.render(<Container/>, root);
+        // const h3 = React.createElement("h3", {
+        //     id:"h3-show", 
+        //     onMouseEnter: () => console.log("mouseenter")
+        // }, "hello");
+        // const btn = React.createElement("button", {
+        //     onClick: () => console.log("clickck"),
+        //     style: {
+        //         backgroundColor: "pink",
+        //     },
+        // }, "click");
+        // const container = React.createElement("div", null, [title, Button]);
+        // ReactDOM.render(Container, root);
 
 
     </script>
