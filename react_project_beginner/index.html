@@ -81,14 +81,17 @@
         // }      
         // reRender();
         
+        /*
         //리렌더링을 자동적으로 해줄수있는 더 좋은 코드로 변환
         const root = document.getElementById("root");
-        
         function App () {
             const [counter, setCounter] = React.useState(0); 
             //countUp 함수와 동일하다. counter는 우리가 가져오려는 값이고 modifier은 데이터값을 바꿀때 사용할거다
+            //modifier함수를 가지고 state를 변경할 때, 컴포넌트가 재생성돼 새로운 값을 가지고 리렌더링이 된다.
             const onClick = () => {
-                setCounter(counter + 1);
+              //  setCounter(counter + 1);]
+              setCounter((current) => current + 1);
+              //현재 state를 바탕으로 다음 state를 계산하기 위해선, 이렇게 함수를 줘야함.
             };
             return(
                 <div>
@@ -98,6 +101,27 @@
             )
         }      
         ReactDOM.render(<App/>, root); 
+        */
+        function App(){
+            const [minutes, setMinutes] = React.useState();
+            const onChange = (event) => {
+                //console.log(event.target.value);
+                setMinutes(event.target.value);
+            };
+            return (
+                <div>
+                    <h1 className="hi">Super Converter</h1>
+                    <label htmlFor="minutes">Minutes</label>
+                    <input value={minutes} id="minutes" type="number" 
+                    placeholder="Minutes" onChange={onChange}/>
+                    <h4>df{minutes}</h4>
+                    <label for="hours">Hours</label>
+                    <input id="hours" type="number" placeholder="Hours"/>
+                </div>
+            )
+        }
+        const root = document.getElementById("root");
+        ReactDOM.render(<App/>, root);
     
 
 
