@@ -249,4 +249,16 @@ ex) list_of_num = [1, 2, 3]
 # recursive = False => 바로 아래만 찾아줌
 # mosaic zone까지 바로 포함되는 문제점있음
 #jobs = job_list.find_all('li', recursive=False)
-#None 은 아무것도 없을 때
+# None 은 아무것도 없을 때
+
+from extractors.indeed import extract_indeed_jobs
+from extractors.wwr import extract_wwr_jobs
+
+keyword = input("What do you want to search?")
+indeed = extract_indeed_jobs(keyword)
+wwr = extract_wwr_jobs(keyword)
+
+jobs = indeed + wwr
+for job in jobs:
+  print(job)
+  print("//////////////")
