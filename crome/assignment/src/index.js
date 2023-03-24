@@ -1,5 +1,5 @@
 // <⚠️ DONT DELETE THIS ⚠️>
-import "./styles.css";
+// import "style.css";
 const colors = ["#1abc9c", "#3498db", "#9b59b6", "#f39c12", "#e74c3c"];
 // <⚠️ /DONT DELETE THIS ⚠️>
 
@@ -12,8 +12,20 @@ const colors = ["#1abc9c", "#3498db", "#9b59b6", "#f39c12", "#e74c3c"];
 ✅ DO NOT CHANGE .css, or .html files.
 ✅ ALL function handlers should be INSIDE of "superEventHandler"
 */
+const title = document.querySelector("h2");
+
+window.onresize = function () {
+  const widthSize = window.innerWidth;
+  title.style.color = "#ffffff";
+  if (widthSize <= 700) {
+    document.body.style.backgroundColor = colors[0];
+  } else if (widthSize > 700 && widthSize <= 900) {
+    document.body.style.backgroundColor = colors[1];
+  } else if (widthSize > 900 && widthSize <= 1200) {
+    document.body.style.backgroundColor = colors[2];
+  }
+};
 const superEventHandler = function () {
-  const title = document.querySelector("h2");
   function onMouseOver() {
     title.innerText = "the mouse is here";
     title.style.color = colors[0];

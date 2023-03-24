@@ -28,10 +28,11 @@ def extract_indeed_jobs(keyword):
     results = []
     for page in range(pages):
         base_url = "https://kr.indeed.com/jobs"
-        end_url = f"{base_url}?q={keyword}&start={page*10}"
-        print("request", end_url)
-        browser.get(end_url)
+        all_url = f"{base_url}?q={keyword}&start={page*10}"
+        print("request", all_url)
+        browser.get(all_url)
         soup = BeautifulSoup(browser.page_source, "html.parser")
+        
         job_list = soup.find("ul", class_="jobsearch-ResultsList")
         jobs = job_list.find_all("li", recursive=False) #recursive를 쓰는 이유는 ul의 바로 아래에 있는것만 검색 하려고
         # print(len(jobs))
