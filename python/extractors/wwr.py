@@ -27,11 +27,10 @@ def extract_wwr_jobs(keyword):
         title = anchor.find('span', class_="title")
         #find_all은 찾은 모든 것들의 list를 주고, find는 결과값만 준다.
         job_data = {
-          'company': company.string,
-          'region': region.string,
-          'position': kind.string,
-          'title': title.string,
-          'link': f"https://weworkremotely.com{link}"
+          'link': f"https://weworkremotely.com{link}",
+          'company': company.string.replace(",", " "),
+          'location': region.string.replace(","," "),
+          'position': kind.string.replace(","," ")
         }
         results.append(job_data)
     # for result in results:

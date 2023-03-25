@@ -250,6 +250,7 @@ ex) list_of_num = [1, 2, 3]
 # mosaic zone까지 바로 포함되는 문제점있음
 #jobs = job_list.find_all('li', recursive=False)
 # None 은 아무것도 없을 때
+#5.17 .replace("," , " ") >>> 콤마를 스페이스로 대체한다.
 
 from extractors.indeed import extract_indeed_jobs
 from extractors.wwr import extract_wwr_jobs
@@ -257,8 +258,14 @@ from extractors.wwr import extract_wwr_jobs
 keyword = input("What do you want to search?")
 indeed = extract_indeed_jobs(keyword)
 wwr = extract_wwr_jobs(keyword)
-
 jobs = indeed + wwr
+
+file = open(f"{keyword}.csv", "w") #파일 만드는 함수(f"파일 생성하는 모드", "파일여는 방법 w는 읽기전용")
+file.write("Position,Company,Location,URL\n") #파일연 후 첫번째 줄 글 쓰기.
+
 for job in jobs:
-  print(job)
-  print("//////////////")
+  file.write(f"{job['position']},{job['company']}, {job['location']}, {job['link']}\n")
+  # f"쌍따옴표를 사용하고 있기에 안에내용은 ''로 진행 "
+file.close()
+
+
