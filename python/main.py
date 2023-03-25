@@ -252,20 +252,60 @@ ex) list_of_num = [1, 2, 3]
 # None 은 아무것도 없을 때
 #5.17 .replace("," , " ") >>> 콤마를 스페이스로 대체한다.
 
+# from extractors.indeed import extract_indeed_jobs
+# from extractors.wwr import extract_wwr_jobs
+# from file import save_to_file
+
+# keyword = input("What do you want to search?")
+# indeed = extract_indeed_jobs(keyword)
+# wwr = extract_wwr_jobs(keyword)
+# jobs = indeed + wwr
+
+# save_to_file(keyword, jobs)
+
+# 6.0 flask 는 웹사이트를 만들고, 사용자 입력을 처리하고, 파일을 전달하고, html파일을 user에게 보여줌
+from flask import Flask, render_template, request, redirect, send_file
 from extractors.indeed import extract_indeed_jobs
 from extractors.wwr import extract_wwr_jobs
+from file import save_to_file
+#request : 브라우저가 웹사이트에 가서 콘텐츠를 요청하는 것이다.
 
-keyword = input("What do you want to search?")
-indeed = extract_indeed_jobs(keyword)
-wwr = extract_wwr_jobs(keyword)
-jobs = indeed + wwr
+#user에 응답
+app = Flask(__name__)
 
-file = open(f"{keyword}.csv", "w") #파일 만드는 함수(f"파일 생성하는 모드", "파일여는 방법 w는 읽기전용")
-file.write("Position,Company,Location,URL\n") #파일연 후 첫번째 줄 글 쓰기.
+@app.route("/")  #decorator
+def home():
+  return render_template("home.html", name="huibin") 
+  #html에 변수주기
+  #name = "huibin"이라는 request가 도착하면 Flask는 변수를 가지고 html 템플릿 안에 있는 변수를 request한 값으로 대체하여 user에게 전달된다.
+  #위의 상황을 rendering이라 한다.
+db = {}
 
-for job in jobs:
-  file.write(f"{job['position']},{job['company']}, {job['location']}, {job['link']}\n")
-  # f"쌍따옴표를 사용하고 있기에 안에내용은 ''로 진행 "
-file.close()
+@app.route("/search")
+def search():
+  keyword = request.args.get("keyword")
+  if keyword == "":
+    return redirect("/")
+  if keyword in db:
+    jobs = db[keyword]
+  else:
+    indeed = extract_indeed_jobs(keyword)
+    wwr = extract_wwr_jobs(keyword)
+    jobs = indeed + wwr
+    db[keyword] = jobs
+  return render_template("search.html", keyword=keyword, jobs=jobs)
 
+#파일로 export하기 위해 만든 함수.
+@app.route("/export") #url 설정
+def export():
+  keyword = request.args.get("keyword") #키워드 가져오기
+  if keyword == "": #키워드 안찾고 search버튼 누를경우 리다이렉트
+    return redirect("/")
+  if keyword == None: #키워드가 없을 경우 리다이렉트
+    return redirect("/")
+  if keyword not in db: #우리의 데이터베이스에 없을경우에 그 키워드를 search하는 페이지로 이동
+    return redirect(f"/search?keyword={keyword}")
+  save_to_file(keyword, db[keyword])
+  return send_file(f"{keyword}.csv", as_attachment=True) #파일의이름, as_attachment=True는 다운로드 실행
 
+app.run("127.0.0.1")
