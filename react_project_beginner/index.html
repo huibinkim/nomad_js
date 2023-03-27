@@ -85,7 +85,7 @@
         //리렌더링을 자동적으로 해줄수있는 더 좋은 코드로 변환
         const root = document.getElementById("root");
         function App () {
-            const [counter, setCounter] = React.useState(0); 
+            const [counter, setCounter] = React.useState(0);
             //countUp 함수와 동일하다. counter는 우리가 가져오려는 값이고 modifier은 데이터값을 바꿀때 사용할거다
             //modifier함수를 가지고 state를 변경할 때, 컴포넌트가 재생성돼 새로운 값을 가지고 리렌더링이 된다.
             const onClick = () => {
@@ -99,8 +99,8 @@
                     <button onClick={onClick}> click </button>
                 </div>
             )
-        }      
-        ReactDOM.render(<App/>, root); 
+        }
+        ReactDOM.render(<App/>, root);
         */
 
       function MinutesToHours() {
@@ -151,7 +151,43 @@
         );
       }
       function KmToMiles() {
-        return <h3>KM 2 M</h3>;
+        const [miles, setMiles] = React.useState("0");
+        const [up, setUp] = React.useState(true);
+        const kmChange = (event) => {
+          setMiles(event.target.value);
+        };
+        const reStart = () => {
+          setMiles(0);
+        };
+        const onSwitch = (event) => {
+          console.log(event);
+        };
+        return (
+          <div>
+            <div>
+              <label htmlFor="km">km</label>
+              <input
+                value={miles}
+                type="number"
+                id="kilo"
+                onChange={kmChange}
+                placeholder="Km"
+              />
+            </div>
+
+            <div>
+              <label for="">Miles</label>
+              <input
+                value={miles}
+                type="number"
+                id="miles"
+                placeholder="miles"
+              />
+            </div>
+            <button onClick={reStart}>Reset</button>
+            <button onClick={onSwitch}>Change</button>
+          </div>
+        );
       }
       function App() {
         const [index, setIndex] = React.useState("s");
@@ -166,6 +202,7 @@
               <option value="0">Minutes & Hours</option>
               <option value="1">Km & Miles</option>
             </select>
+
             {index === "xx" ? "please select" : null}
             {index === "0" ? <MinutesToHours /> : null}
             {index === "1" ? <KmToMiles /> : null}
