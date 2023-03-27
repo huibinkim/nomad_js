@@ -48,3 +48,5 @@ const superEventHandler = function () {
   window.addEventListener("contextmenu", onMouseRight);
 };
 superEventHandler();
+
+const num = Math.floor(Math.random() * 10);
