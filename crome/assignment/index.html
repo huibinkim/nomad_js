@@ -12,14 +12,22 @@
 
     <h3>
       Generate a number between 0 and
-      <input id="first-num" type="number" value="" placeholder="write number" />
+      <input id="first-num" type="number" min="0" value="" required />
     </h3>
 
     <div>
-      Guess the number:
-      <input id="my-num" type="number" value="" />
-      <button>play</button>
-      <p>You chose: , machine chose:</p>
+      <label for="my-num">Guess the number: </label>
+      <input
+        id="my-num"
+        type="number"
+        min="0"
+        value=""
+        placeholder="write number"
+      />
+      <button id="btn">play</button>
+      <p class="play"></p>
+      <p class="result-txt"></p>
+      <button id="re-btn">reset</button>
     </div>
 
     <script src="src/index.js"></script>
