@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <!-- <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script> -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      /**
+
+         ##4.2 props type
+
+
+      **/
+
+      function Btn(props) {
+        return (
+          <button
+            style={{
+              backgroundColor: "red",
+              color: "#fff",
+              padding: "10px 20px",
+              borderRadius: 10,
+              fontSize: props.fontSize,
+            }}
+          >
+            {props.potato}
+          </button>
+        );
+      }
+      Btn.propTypes = {
+        potato: PropTypes.string.isRequired,
+        fontSize: PropTypes.number,
+      };
+      function App() {
+        return (
+          <div>
+            <Btn potato="Continue" fontSize={18} />
+            <Btn potato={"save"} />
+          </div>
+        );
+      }
+      const root = document.getElementById("root");
+      ReactDOM.render(<App />, root);
+    </script>
+  </body>
+</html>
