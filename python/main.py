@@ -60,8 +60,8 @@
 
 # def pay_tax(tax):
 #   print("tank you", tax)
-
 # pay_tax(tax_calc(144449444))
+
 # 2.8
 # my_name = "nico"
 # my_age = 20
@@ -72,7 +72,7 @@
 
 # def make_juice(fruit):
 #   return f"{fruit}+🏖"
-#   print("sfsfs")
+#   print("sfsfs") >> 안나타남 왜냐면 return으로 함수를 끝냈기 때문
 
 # def add_ice(juice):
 #   return f"{juice}+🥇"
@@ -112,10 +112,10 @@
 #   print("yes")
 #3.4
 """
-from random import randint
+from random import randint >>파이썬의 기본으로 가지고 있는 다양한 친구들?
 
 user_choice = int(input("choose num"))
-pc_choice = randint(1, 50) #i imported this
+pc_choice = randint(1, 50) #i imported this  >>1부터 50중의 랜덤한 숫자를 고름.
 
 if user_choice == pc_choice:
   print("you won")
@@ -126,28 +126,31 @@ elif user_choice < pc_choice:
   
 #3.5 while 내가 스탑하기 전까지 계속 동작, if와 비슷 벗 멈추지 않는다.
 # 조건이 false가 될때까지 동작함.
+
 distance = 0
 while distance < 20:
   print("im running", distance, "km")
   distance = distance + 1
+# distance가 20이 되는 순간 함수는 멈춤.
 
 from random import randint
 
 print("welcome")
 pc_choice = randint(1, 50) #i imported this
-
+# pc가 1-50의 랜던숫자 픽
 playing = True
 
-while playing:
+while playing: #true일때만 진행되는 게임
   user_choice = int(input("choose num(1-50)"))
   if user_choice == pc_choice:
     print("you won")
-    playing = False
+    playing = False #맞추면 게임 중지시키기
   elif user_choice > pc_choice:
     print("lower", pc_choice)
   elif user_choice < pc_choice:
     print("higher")
 
+ 
 """
 # 4.0 method
 # python의 데이터 구조 (3가지)
@@ -158,11 +161,12 @@ while playing:
 # print(name.endswith("o")), reverse, clear()
 # list
 # days_of_week = ["Mon", "Tue", "Wed", "Thu", "Fri", [1,2,3], True]
-
 # print(days_of_week[5])
+
 # 2. tuple : 불변성을 가진다. 즉, 튜플을 변경하지 못한다.
 # days = ("Mon", "Tue", "Wed")
 # print(days[-1])
+
 # 3. dictionary
 # 사전하면 단어와 정의가 있다. key-value로 보면 됨. key(단어) value(정의)
 # player = {
@@ -174,12 +178,12 @@ while playing:
 #     "name" : "lynn",
 #     "food" : ["dd"]
 #   }
-
 # }
-# player['xp'] = 23333
-# player['food'] = "🍊"
+# player['xp'] = 23333 >>key-value 추가하기
+# player['food'] = "🍊" >>변경하기
 # print(player['friend']['food'])
-# print(player.get('food'))
+# print(player.get('food')) >> food라는 key값 불러올때
+
 #4.4 loop
 '''
 from requests import get
@@ -194,10 +198,10 @@ websites = [
 results = {}
 
 #for(loop)
-for website in websites:
-  if not website.startswith("https://"):
-    website = f"https://{website}"
-  response = get(website)
+for website in websites: #웹사이트 리스트 안의 내용들 하나씩
+  if not website.startswith("https://"): #하나씩 만약 http://로 시작안하는 친구들은
+    website = f"https://{website}" #붙여줘라.
+  response = get(website) #response는 하나씩 가져온다.
   code_check = response.status_code #response만 프린트하면 string도 함께 나온다. 그래서 상태코드만 불러낼 수 잇다.
 
   if code_check == 200:
@@ -273,7 +277,7 @@ from file import save_to_file
 #user에 응답
 app = Flask(__name__)
 
-@app.route("/")  #decorator
+@app.route("/")  #decorator html과 연동
 def home():
   return render_template("home.html", name="huibin") 
   #html에 변수주기
