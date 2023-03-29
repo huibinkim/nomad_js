@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      /** props는 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 하는 방법이다. 
+        props는 첫번째이자 유일한 인자이며 object이다.
+      **/
+
+      function Btn({ potato, big }) {
+        console.log(potato, big);
+        return (
+          <button
+            style={{
+              backgroundColor: "red",
+              color: "#fff",
+              padding: "10px 20px",
+              borderRadius: 10,
+              fontSize: big ? 18 : 16,
+            }}
+          >
+            {potato}
+          </button>
+        );
+      }
+
+      function App() {
+        return (
+          <div>
+            <Btn potato="Save Changes" big={false} />
+            <Btn potato="Continue" big={true} />
+          </div>
+        );
+      }
+      const root = document.getElementById("root");
+      ReactDOM.render(<App />, root);
+    </script>
+  </body>
+</html>

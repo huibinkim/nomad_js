@@ -102,6 +102,8 @@
         }
         ReactDOM.render(<App/>, root);
         */
+      /**
+       **/
 
       function MinutesToHours() {
         const [minutes, setMinutes] = React.useState(0);
@@ -152,36 +154,40 @@
       }
       function KmToMiles() {
         const [miles, setMiles] = React.useState("0");
-        const [up, setUp] = React.useState(true);
+        const [up, setUp] = React.useState(false);
         const kmChange = (event) => {
           setMiles(event.target.value);
         };
         const reStart = () => {
           setMiles(0);
         };
-        const onSwitch = (event) => {
-          console.log(event);
+        const onSwitch = () => {
+          reStart();
+          setUp((current) => !current);
         };
         return (
           <div>
             <div>
               <label htmlFor="km">km</label>
               <input
-                value={miles}
+                value={up ? Math.round(miles / 1000) : miles}
                 type="number"
                 id="kilo"
                 onChange={kmChange}
                 placeholder="Km"
+                disabled={up === true}
               />
             </div>
 
             <div>
-              <label for="">Miles</label>
+              <label htmlFor="miles">Miles</label>
               <input
-                value={miles}
+                value={up ? miles : Math.round(miles * 1000)}
                 type="number"
                 id="miles"
+                onChange={kmChange}
                 placeholder="miles"
+                disabled={up === false}
               />
             </div>
             <button onClick={reStart}>Reset</button>
