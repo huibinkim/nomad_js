@@ -5,7 +5,7 @@
 // console.log( a / 2 );
 
 // // object
-// const player = { 
+// const player = {
 //     name: "nico",
 //     points: 10,
 //     fat: true,
@@ -14,7 +14,6 @@
 //  console.log(player.name);
 //  player.fat = false;
 //  player.lastName = "no";
- 
 
 //  function
 // function sayHello(nameOfPerson, age){
@@ -219,29 +218,26 @@ const HIDDEN_CLASSNAME = "hidden";
 const USERNAME_KEY = "username";
 // const link = document.querySelector("#login-form + a")
 
-function onSubmit(event){
-    event.preventDefault(); //이 함수는 어떤 event의 브라우저가 기본적으로 하는 동작들을 막는것이다.
-    const writeUsername = loginInput.value;
-    localStorage.setItem(USERNAME_KEY, writeUsername);
-    loginForm.classList.add(HIDDEN_CLASSNAME);
-    paintGreeting(writeUsername);
-};
-//화면에 텍스트 보여주는 함수 
-function paintGreeting(username){
-    greeting.innerText = `hello ${username}`;
-    greeting.classList.remove(HIDDEN_CLASSNAME);
-};
+function onSubmit(event) {
+  event.preventDefault(); //이 함수는 어떤 event의 브라우저가 기본적으로 하는 동작들을 막는것이다.
+  const writeUsername = loginInput.value;
+  localStorage.setItem(USERNAME_KEY, writeUsername);
+  loginForm.classList.add(HIDDEN_CLASSNAME);
+  paintGreeting(writeUsername);
+}
+//화면에 텍스트 보여주는 함수
+function paintGreeting(username) {
+  greeting.innerText = `hello ${username}`;
+  greeting.classList.remove(HIDDEN_CLASSNAME);
+}
 
 //로컬에 저장한 username으로 값이 있으면 h1을 보여주고 없으면 login-form을 보여준다.
 const savedUsername = localStorage.getItem(USERNAME_KEY); //key에 해당하는 value.
-if(savedUsername === null){
-    //show the form
-    loginForm.classList.remove(HIDDEN_CLASSNAME);
-    loginForm.addEventListener("submit", onSubmit);
-}else{
-    //show the greeting
-    paintGreeting(savedUsername);
+if (savedUsername === null) {
+  //show the form
+  loginForm.classList.remove(HIDDEN_CLASSNAME);
+  loginForm.addEventListener("submit", onSubmit);
+} else {
+  //show the greeting
+  paintGreeting(savedUsername);
 }
-
-
-

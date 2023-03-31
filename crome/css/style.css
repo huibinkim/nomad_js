@@ -1,65 +1,101 @@
-#wrap { 
-    position:relative; 
-    width:100%; 
-    height:100vh; 
-    z-index:10; 
+@font-face {
+  font-family: "Dovemayo_gothic";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.1/Dovemayo_gothic.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#wrap {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  z-index: 10;
+  font-family: "Dovemayo_gothic";
+}
+/* weather css */
+#weather {
+  text-align: right;
+}
+#weather span {
+  display: inline-block;
+  padding: 5px 10px;
 }
 
 /* login-form */
-header #login-form { 
-    display:flex; 
-    flex-direction:column; 
-    align-items:center;
-    justify-content:center; 
-    height:200px; 
+header #login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  padding-top: 20px;
 }
-#login-form input:first-of-type { 
-    width:200px;
-    height:50px;
-    margin-bottom:10px;
-    border-radius:5px;
-    text-align:center;
-    box-shadow: 0px 10px 10px -5px #3d3d3d;
+#login-form input:first-of-type {
+  width: 200px;
+  height: 50px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0px 10px 10px -5px #3d3d3d;
 }
 #login-form input:last-child {
-    width:70px;
-    height:30px;
-    background:#000;
-    border-radius:5px;
-    color:#fff;
-    cursor:pointer;
+  width: 70px;
+  height: 30px;
+  background: #000;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+#wrap #greeting {
+  font-size: 40px;
+  text-align: center;
+  color: #3d3d3d;
 }
 
 /* container >> 시계, todo list, 인용구 */
 #wrap .container {
-    height:calc(100vh - 220px);
-    margin:30px auto;
-    text-align:center;
+  height: calc(100vh - 320px);
+  margin: 30px auto;
+  text-align: center;
 }
 .container #clock {
-    margin-bottom:20px;
+  margin-bottom: 20px;
 }
 #todo-form input {
-    width:350px;
-    height:26px;
-    border-radius:5px;
-    white-space:normal;
+  width: 350px;
+  height: 26px;
+  border-radius: 5px;
+  white-space: normal;
 }
 #todo-form input::placeholder {
-    padding-left:10px;
+  padding-left: 10px;
 }
 #todo-form #todo-list li {
-    padding:5px;
-    text-align:left;
+  padding: 5px;
+  text-align: left;
+}
+
+.container #quote {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.container #quote span {
+  text-align: center;
 }
 
 /* js에서 사용 */
 .hidden {
-    display:none;
+  opacity: 0;
 }
 .bg {
-    position:absolute;
-    top:0;
-    width:100%;
-    height:100vh;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100vh;
 }

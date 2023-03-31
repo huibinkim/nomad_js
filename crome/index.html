@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>momentum app</title>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/reset.css">
-</head>
-<body>
-    
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/reset.css" />
+  </head>
+  <body>
     <div id="wrap">
-        <header>
-            <div id="weather">
-                <span></span>
-                <span></span>
-            </div>
-            <!-- 앱만들기 -->
-            <form id="login-form" class="hidden">
-                <input type="text" required maxlength="15" placeholder="what's your name?">
-                <input type="submit" value="Log in">
-            </form>
-            <!-- <a href="https://bananajeong.tistory.com/81">a link</a> -->
-            <h1 id="greeting" class="hidden"></h1>
-        </header>
-            
-        <div class="container">
-            <!-- 시계 만들기 -->
-            <h2 id="clock">00:00</h2>
-
-            <!-- todo list -->
-            <form id="todo-form">
-                <input type="text" placeholder="write a to do & press enter" required>
-            </form>
-            <ul id="todo-list"></ul>
-
-            <!-- 인용구 삽입 -->
-            <div id="quote">
-                <span></span>
-                <span></span>
-            </div>
+      <header>
+        <div id="weather">
+          <span></span>
+          <span></span>
         </div>
+        <!-- 앱만들기 -->
+        <form id="login-form" class="hidden">
+          <input
+            type="text"
+            required
+            maxlength="15"
+            placeholder="what's your name?"
+          />
+          <input type="submit" value="Log in" />
+        </form>
+        <!-- <a href="https://bananajeong.tistory.com/81">a link</a> -->
+        <h1 id="greeting" class="hidden"></h1>
+      </header>
 
+      <div class="container">
+        <!-- 시계 만들기 -->
+        <h2 id="clock">00:00</h2>
+
+        <!-- todo list -->
+        <form id="todo-form">
+          <input
+            type="text"
+            placeholder="write a to do & press enter"
+            required
+          />
+        </form>
+        <ul id="todo-list"></ul>
+
+        <!-- 인용구 삽입 -->
+        <div id="quote">
+          <span></span>
+          <span></span>
+        </div>
+      </div>
     </div>
 
-    
-
-   
     <script src="js/login.js"></script>
     <script src="js/clock.js"></script>
     <script src="js/quotes.js"></script>
     <script src="js/background.js"></script>
     <script src="js/todo.js"></script>
     <script src="js/weather.js"></script>
-</body>
+  </body>
 </html>
