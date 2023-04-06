@@ -67,7 +67,7 @@ function hellog(name: string | number) {
 // }
 type Add = (a: number, b: number) => number;
 const add: Add = (a, b) => a + b;
- */
+
 //overloading : 함수가 여러개의 call signatures를 가지고 있을 때 발생한다.
 //Function(=Method) Overloading은 직접 작성하기보다 외부 라이브러리에 자주 보이는 형태로, 하나의 함수가 복수의 Call Signature를 가질 때 발생한다
 type Add = {
@@ -97,3 +97,54 @@ const push: Push = (config) => {
     console.log(config.path);
   }
 };
+
+//#3.2 polymorphism (다형성) = many structure 여러가지 다른 구조들
+// concrete type : number, string, boolean ...
+//generic : type의 placeholder 같은 것. 기본적으로 placeholder을 사용해서 내가 작성한 코드의 타입 기준으로 바꿔준다. 편리함.
+// any와의 차이점은 해당 타입에 대한 정보를 잃지 않는다. any를 사용하게 되면 보호받지 못하고 number임에도 toUpperCase()를 사용하게 됨.
+// 보통은 제네릭을 만들기 보단 라이브러리에서 사용할 것이다.
+//제네릭은 선언 시점이 아니라 생성 시점에 타입을 명시하여 하나의 타입만이 아닌 다양한 타입을 사용할 수 있도록 하는 기법이다.
+
+//generic 사용법
+// 1. 타입스크립트에 사용하고 싶다고 알려줘야함.
+type SuperPrint = {
+  <T, M>(arr: T[], b?: M): T;
+};
+// const superPrint: SuperPrint = (arr) => {
+//   arr.forEach((i) => console.log(i));
+// };
+const superPrint: SuperPrint = (arr) => arr[0];
+
+const a = superPrint([1, 2, 3], "x");
+const b = superPrint([true, false]);
+const c = superPrint([1, 2, true, false]);
+//함수로 나타내기
+function superPrint<V>(a: V[]) {
+  return a[0];
+}
+const a = superPrint([1, 2, 3]);
+const b = superPrint([true, false]);
+const c = superPrint([1, 2, true, false]);
+
+//제네릭 타입 재사용
+type Player<E> = {
+  name: string;
+  extraInfo: E;
+};
+type NicoExtra = {
+  food: string;
+};
+type NicoPlayer = Player<NicoExtra>;
+const nico: NicoPlayer = {
+  name: "nico",
+  extraInfo: {
+    food: "kimchi",
+  },
+};
+
+const lynn: Player<null> = {
+  name: "lynn",
+  extraInfo: null,
+};
+ */
+function printNumbers(arr: Array<number>) {}
