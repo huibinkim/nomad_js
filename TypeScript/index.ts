@@ -146,5 +146,13 @@ const lynn: Player<null> = {
   name: "lynn",
   extraInfo: null,
 };
- */
 function printNumbers(arr: Array<number>) {}
+ */
+
+// #4.0 객체지향프로그래밍
+// const Player{
+//    constructor(
+//       private firstName :string,
+//       private lastName:string
+//    )
+// }
