@@ -147,7 +147,7 @@ const lynn: Player<null> = {
   extraInfo: null,
 };
 function printNumbers(arr: Array<number>) {}
- */
+
 
 // #4.0 객체지향프로그래밍
 // const Player{
@@ -156,3 +156,194 @@ function printNumbers(arr: Array<number>) {}
 //       private lastName:string
 //    )
 // }
+
+//#4.2 static, interfaces
+type WordsWord = {
+  [key: string]: string;
+};
+// let dict:Words = {
+//     1:"flddk"
+// }
+class Diction {
+  private words: WordsWord;
+  constructor() {
+    this.words = {};
+  }
+  add(word: WordsW) {
+    //단어 추가
+    if (this.words[word.term] === undefined) {
+      this.words[word.term] = word.def;
+    }
+  }
+  def(term: string) {
+    //단어 정의
+    return this.words[term];
+  }
+  static hello() {
+    return "hello";
+  }
+}
+class WordsW {
+  constructor(public readonly term: string, public readonly def: string) {}
+}
+
+const gim = new WordsW("gim", "한국음식");
+const pizza = new WordsW("pizza", "italian food");
+const diction = new Diction();
+
+diction.add(gim);
+diction.add(pizza);
+Diction.hello();
+
+//type을 사용하는 방법 1
+type Player = {
+  nickname: string;
+  healthBar: number;
+};
+const nico: Player = {
+  nickname: "nico",
+  healthBar: 10,
+};
+//type을 사용하는 방법 2
+type Food = string;
+const rice: Food = "delicious";
+
+//type을 사용하는 방법 3
+type Nickname = string;
+type Health = number;
+type Friends = Array<string>;
+type Player = {
+  nickname: Nickname;
+  healthBar: Health;
+};
+const nico: Player = {
+  nickname: "nico",
+  healthBar: 10,
+};
+
+// 타입을 특정값으로 지정하여 사용하는 방법
+type Team = "red" | "blue" | "yellow";
+type Health = 1 | 5 | 10;
+type Player = {
+  nickname: string;
+  team: Team;
+  health: Health;
+};
+
+const nico: Player = {
+  nickname: "huibin",
+  team: "red",
+  health: 5,
+};
+
+//##interface : object의 모양을 설명하는 다른 방법 ,오직 object의 모양을 특정해준다. type이 더 다양한 목적으로 사용가능
+type Team = "red" | "blue" | "yellow";
+type Health = 1 | 5 | 10;
+interface Player {
+  nickname: string;
+  team: Team;
+  health: Health;
+}
+const nico: Player = {
+  nickname: "huibin",
+  team: "red",
+  health: 5,
+};
+
+//interface로 Player가 User를 상속받음. like Class
+interface User {
+  readonly name: string;
+}
+interface Player extends User {}
+const nico: Player = {
+  name: "nico",
+};
+
+//type으로 상속 받기(위와 동일), &의 의미는 and
+type User = {
+  name: string;
+};
+type Player = User & {};
+const nico: Player = {
+  name: "nico",
+};
+위의 두가지는 동일한 것을 뜻함. 내가 편한걸로 사용하셈 그러나 object를 설명할땐 interface가 나음
+interface는 객체 지향 프로그래밍의 개념을 활용해서 디자인됨.
+
+//interface는 같은 interface에 다른 이름의 property들을 쌓을 수 있다. type은 안됨.
+interface User {
+  name: string;
+}
+interface User {
+  lastName: string;
+}
+interface User {
+  health: number;
+}
+
+const nico: User = {
+  name: "df",
+  lastName: "d",
+  health: 10,
+};
+
+//# 4.3 interface와 class 결합하여 사용
+// 아래는 추상 클래스 >> 추상클래스는 이걸 상속받는 다른 클래스가 가질 property와 method를 지정하도록 한다.
+// 추상 클래스는 상속받는 클래스가 어떻게 동작해야할지 알려주기 위해 사용
+// 추상 클래스는 추상 클래스의 인스턴스를 만들수없다.(복사의 개념? new User)
+// protected : 추상 클래스로부터 상속받은 클래스들이 proterty에 접근하도록 한다.
+abstract class User {
+  constructor(protected firstName: string, protected lastName: string) {}
+  abstract sayHi(name: string): string;
+  abstract fullName(): string;
+}
+class Player extends User {
+  fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+  sayHi(name: string) {
+    return `hello ${name}. My name is ${this.fullName}`;
+  }
+}
+ */
+// 추상클래스로 작성한 User는 자바스크립트에서는 실제로 사용되지 않고 그냥 클래스로 보임.
+// interface는 추상클래스보다 좀 더 가볍기에 여기서 추상클래스같은 개념으로 사용이 가능하다.
+// interface는 자바스크립트에는 존재하지 않기 때문에 자바스크립트에는 보여지진않는다. 따라서 파일의 크기가 작아짐.
+// type이나 interface는 추상클래스 대신해서 사용할 수 있다.
+//타입 alias 는 전체 타입
+interface User {
+  firstName: string;
+  lastName: string;
+  sayHi(name: string): string;
+  fullName(): string;
+}
+interface Human {
+  health: number;
+}
+class Player implements User, Human {
+  constructor(
+    public firstName: string,
+    public lastName: string,
+    public health: number
+  ) {}
+  fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+  sayHi(name: string) {
+    return `hello ${name}. My name is ${this.fullName}`;
+  }
+}
+function makeUser(user: User): User {
+  return {
+    firstName: "icod",
+    lastName: "lskjf",
+    fullName: () => "fdf",
+    sayHi: (name) => "string",
+  };
+}
+makeUser({
+  firstName: "icod",
+  lastName: "lskjf",
+  fullName: () => "fdf",
+  sayHi: (name) => "string",
+});
