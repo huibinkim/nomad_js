@@ -305,7 +305,7 @@ class Player extends User {
     return `hello ${name}. My name is ${this.fullName}`;
   }
 }
- */
+
 // 추상클래스로 작성한 User는 자바스크립트에서는 실제로 사용되지 않고 그냥 클래스로 보임.
 // interface는 추상클래스보다 좀 더 가볍기에 여기서 추상클래스같은 개념으로 사용이 가능하다.
 // interface는 자바스크립트에는 존재하지 않기 때문에 자바스크립트에는 보여지진않는다. 따라서 파일의 크기가 작아짐.
@@ -347,3 +347,37 @@ makeUser({
   fullName: () => "fdf",
   sayHi: (name) => "string",
 });
+ */
+
+// #4.5 Polymorphism (다형성) : 다른 모양의 코드를 가질 수  있게 해준다.
+// 다형성을 이룰 수 있는 방법은 제네릭을 사용하는 것이다.
+// 제네릭은 placeholder타입 을 쓸 수 있도록 해준다. not contrete type
+// 때가 되면 typescript가 알아서 placeholder type을 concrete type으로 바꿔준다. 따라서 그냥 placeholder type만 쓰면됨.
+
+interface SStorage<T> {
+  [key: string]: T; //이건 key가 제한되지 않은 오브젝트를 정의해줌. key가 몇개인진 모르지만 무슨 타입인진 알고있음
+}
+
+class LocalStroage<T> {
+  private storage: SStorage<T> = {};
+  set(key: string, value: T) {
+    this.storage[key] = value;
+  }
+  remove(key: string) {
+    //string형식의 key를 받아서 이걸 로컬 스토리지 로부터 지움
+    delete this.storage[key];
+  }
+  get(key: string): T {
+    return this.storage[key];
+  }
+  clear() {
+    this.storage = {};
+  }
+}
+
+const stringStorage = new LocalStroage<string>();
+stringStorage.get("ket");
+stringStorage.set("hello", "type");
+const booleansStorage = new LocalStroage<boolean>();
+booleansStorage.get("xxx");
+booleansStorage.set("hello", false);

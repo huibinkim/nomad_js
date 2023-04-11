@@ -1,3 +1,4 @@
+/*
 type Words = {
   [key: string]: string;
 };
@@ -85,3 +86,4 @@ dict.count();
 dict.def("kimchi");
 dict.del("pasta");
 dict.update("kimchi", "dongchimi");
+*/
