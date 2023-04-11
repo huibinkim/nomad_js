@@ -87,3 +87,30 @@ dict.def("kimchi");
 dict.del("pasta");
 dict.update("kimchi", "dongchimi");
 */
+interface SStorage<T> {
+  [key: string]: T; //이건 key가 제한되지 않은 오브젝트를 정의해줌. key가 몇개인진 모르지만 무슨 타입인진 알고있음
+}
+
+class LocalStroage<T> {
+  private storage: SStorage<T> = {};
+  set(key: string, value: T) {
+    this.storage[key] = value;
+  }
+  remove(key: string) {
+    //string형식의 key를 받아서 이걸 로컬 스토리지 로부터 지움
+    delete this.storage[key];
+  }
+  get(key: string): T {
+    return this.storage[key];
+  }
+  clear() {
+    this.storage = {};
+  }
+}
+
+const stringStorage = new LocalStroage<string>();
+stringStorage.get("ket");
+stringStorage.set("hello", "type");
+const booleansStorage = new LocalStroage<boolean>();
+booleansStorage.get("xxx");
+booleansStorage.set("hello", false);

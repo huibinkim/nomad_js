@@ -347,8 +347,8 @@ makeUser({
   fullName: () => "fdf",
   sayHi: (name) => "string",
 });
- */
 
+// ###############아래부터 블로그 작성 필요
 // #4.5 Polymorphism (다형성) : 다른 모양의 코드를 가질 수  있게 해준다.
 // 다형성을 이룰 수 있는 방법은 제네릭을 사용하는 것이다.
 // 제네릭은 placeholder타입 을 쓸 수 있도록 해준다. not contrete type
@@ -381,3 +381,4 @@ stringStorage.set("hello", "type");
 const booleansStorage = new LocalStroage<boolean>();
 booleansStorage.get("xxx");
 booleansStorage.set("hello", false);
+ */
