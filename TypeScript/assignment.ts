@@ -86,21 +86,62 @@ dict.count();
 dict.def("kimchi");
 dict.del("pasta");
 dict.update("kimchi", "dongchimi");
+
+// interface User {
+//   firstName: string;
+//   lastName: string;
+//   sayHi(name: string): string;
+//   fullName(): string;
+// }
+// interface Human {
+//   health: number;
+// }
+// class Player implements User, Human {
+//   constructor(
+//     public firstName: string,
+//     public lastName: string,
+//     public health: number
+//   ) {}
+//   fullName() {
+//     return `${this.firstName} ${this.lastName}`;
+//   }
+//   sayHi(name: string) {
+//     return `hello ${name}. My name is ${this.fullName}`;
+//   }
+// }
+// function makeUser(user: User): User {
+//   return {
+//     firstName: "icod",
+//     lastName: "lskjf",
+//     fullName: () => "fdf",
+//     sayHi: (name) => "string",
+//   };
+// }
+// makeUser({
+//   firstName: "icod",
+//   lastName: "lskjf",
+//   fullName: () => "fdf",
+//   sayHi: (name) => "string",
+// });
+
+> localStorage.setItem('nums', JSON.stringify([1, 2, 3]))
+undefined
+> JSON.parse(localStorage.getItem('nums'))
+[1, 2, 3]
 */
 interface SStorage<T> {
   [key: string]: T; //이건 key가 제한되지 않은 오브젝트를 정의해줌. key가 몇개인진 모르지만 무슨 타입인진 알고있음
 }
-
 class LocalStroage<T> {
   private storage: SStorage<T> = {};
-  set(key: string, value: T) {
+  setItem(key: string, value: T) {
     this.storage[key] = value;
   }
-  remove(key: string) {
+  clearItem(key: string) {
     //string형식의 key를 받아서 이걸 로컬 스토리지 로부터 지움
     delete this.storage[key];
   }
-  get(key: string): T {
+  getItem(key: string): T {
     return this.storage[key];
   }
   clear() {
@@ -108,9 +149,122 @@ class LocalStroage<T> {
   }
 }
 
-const stringStorage = new LocalStroage<string>();
-stringStorage.get("ket");
-stringStorage.set("hello", "type");
-const booleansStorage = new LocalStroage<boolean>();
-booleansStorage.get("xxx");
-booleansStorage.set("hello", false);
+const localStroage = new LocalStroage<string>();
+localStroage.getItem("ket");
+localStroage.setItem("hello", "type");
+
+interface IGeolocation {
+  clearWatch(watchId: number): void;
+  getCurrentPosition(
+    successCallback: IPositionCallback,
+    errorCallback?: IPositionErrorCallback | null,
+    options?: IGeolocationOptions
+  ): void;
+  watchPosition(
+    successCallback: PositionCallback,
+    errorCallback?: IPositionErrorCallback | null,
+    options?: IGeolocationOptions
+  ): number;
+}
+
+// successCallback interface
+interface IPositionCallback {
+  (position: IGeolocationPosition): void;
+}
+interface IGeolocationPosition {
+  readonly coords: IGeolocationCoordinates;
+  readonly timestamp: IEpochTimeStamp;
+}
+interface IGeolocationCoordinates {
+  readonly accuracy: number;
+  readonly altitude: number | null;
+  readonly altitudeAccuracy: number | null;
+  readonly heading: number | null;
+  readonly latitude: number;
+  readonly longitude: number;
+  readonly speed: number | null;
+}
+type IEpochTimeStamp = number;
+
+// errorCallback interface
+interface IPositionErrorCallback {
+  (positionError: IGeolocationPositionError): void;
+}
+interface IGeolocationPositionError {
+  readonly code: number;
+  readonly message: string;
+  readonly PERMISSION_DENIED: number;
+  readonly POSITION_UNAVAILABLE: number;
+  readonly TIMEOUT: number;
+}
+
+// option interface
+interface IGeolocationOptions {
+  enableHighAccuracy: boolean;
+  timeout: number;
+  maximumAge: number;
+}
+
+// Geolocation class
+class GGeolocation implements IGeolocation {
+  clearWatch(watchId: number) {
+    console.log(watchId);
+  }
+  getCurrentPosition(
+    successCallback: IPositionCallback,
+    errorCallback?: PositionErrorCallback | null,
+    options?: PositionOptions
+  ) {
+    if (successCallback) console.log(successCallback);
+    if (errorCallback) console.log(errorCallback);
+    if (options) console.log(options);
+  }
+  watchPosition(
+    successCallback: PositionCallback,
+    errorCallback?: PositionErrorCallback | null,
+    options?: PositionOptions
+  ) {
+    if (successCallback) console.log(successCallback);
+    if (errorCallback) console.log(errorCallback);
+    if (options) console.log(options);
+    return 0;
+  }
+}
+
+const geolocation = new GGeolocation();
+// 오버로딩
+geolocation.getCurrentPosition(test);
+geolocation.getCurrentPosition(test, test);
+geolocation.getCurrentPosition(test, test, {});
+
+function test() {}
+
+// navigator.geolocation.getCurrentPosition((position) => console.log(position));
+/*
+let options = {
+  timeout: 5000,
+  maximunAge: 0,
+};
+interface GeolocationAPI {
+  loaded?: boolean;
+  coordinates?: { lat: number; lng: number };
+  error?: { code: number; message: string };
+}
+interface position {
+  [key: string]: {};
+}
+function success(pos: position) {
+  var crd = pos.coords;
+
+  console.log("Your current position is:");
+  console.log(`Latitude : ${crd}`);
+  console.log(`Longitude: ${crd.longitude}`);
+  console.log(`More or less ${crd.accuracy} meters.`);
+}
+
+function error(err:) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+*/

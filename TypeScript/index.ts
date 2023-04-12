@@ -381,4 +381,6 @@ stringStorage.set("hello", "type");
 const booleansStorage = new LocalStroage<boolean>();
 booleansStorage.get("xxx");
 booleansStorage.set("hello", false);
+
+
  */
