@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>계산기</title>
   <style>
     * { box-sizing: border-box }
@@ -9,8 +12,6 @@
     button { width: 50px; height: 50px; margin: 5px }
   </style>
 </head>
-
-<!-- 계산기 버튼 구현 -->
 <body>
   <input readonly id="operator">
   <input readonly type="number" id="result">
@@ -38,4 +39,62 @@
     <button id="calculate">=</button>
     <button id="multiply">x</button>
   </div>
+
+  <script>
+    // const onClickNumber = (number) => (event)=> {
+    //   // return() => { //리턴을 생략하고 화살표함수로
+    //     if(operator){ //비어있지않으면
+    //     numTwo += number;
+    //     }else{ //비어있으면
+    //       numOne += number;
+    //     }
+    //     $result.value += number;
+    //     console.log(number);
+    //   // }; //고차 함수 (high order function) : 함수가 함수를 리턴
+    // };
+    let numOne = '';
+    let operator = '';
+    let numTwo = '';
+    const $operator = document.querySelector('#operator');
+    const $result = document.querySelector('#result');
+    const onClickNumber = (event) => {
+      if(operator){ //안비어있으면
+        numTwo += event.target.textContent;
+      }else{ //비어있으면
+        numOne += event.target.textContent;
+      }
+      $result.value += event.target.textContent;
+    }
+    document.querySelector('#num-0').addEventListener('click', onClickNumber);
+    document.querySelector('#num-1').addEventListener('click', onClickNumber);
+    document.querySelector('#num-2').addEventListener('click', onClickNumber);
+    document.querySelector('#num-3').addEventListener('click', onClickNumber);
+    document.querySelector('#num-4').addEventListener('click', onClickNumber);
+    document.querySelector('#num-5').addEventListener('click', onClickNumber);
+    document.querySelector('#num-6').addEventListener('click', onClickNumber);
+    document.querySelector('#num-7').addEventListener('click', onClickNumber);
+    document.querySelector('#num-8').addEventListener('click', onClickNumber);
+    document.querySelector('#num-9').addEventListener('click', onClickNumber);
+
+    const onClickOperator = (op) => () =>{
+      if(numOne){
+        oprator = op;
+        $operator.value = op;
+      }else{
+        alert('숫자 입력하세요.');
+      }
+    }
+
+    document.querySelector('#plus').addEventListener('click', onClickOperator('+'));
+    document.querySelector('#minus').addEventListener('click', onClickOperator('-'));
+    // document.querySelector('#divide').addEventListener('click', onClickOperator('/'));
+    // document.querySelector('#multiply').addEventListener('click', onClickOperator('*'));
+    // document.querySelector('#claculate').addEventListener('click', onClickOperator('*'));
+    // document.querySelector('#clear').addEventListener('click', onClickOperator('*'));
+  </script>
+
 </body>
+</html>
+
+
+<!-- 계산기 버튼 구현 -->
