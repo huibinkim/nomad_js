@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>word-relay</title>
+</head>
+<body>
+    
+        <div><span id="order">1</span>번째 참가자</div>
+        <div>제시어:<span id="word"> </span></div>
+        <input type="text" id="text-value">
+        <button id="btn">입력</button>
+        <div><span id="result"></span></div>
+
+    <script>
+        const number = parseInt(prompt('몇명이 참가하나요?')); 
+        // alert(number);
+        // const yesOrNo = confirm('맞나요?');
+        const txtValue = document.querySelector('#text-value');
+        const btn = document.querySelector('#btn');
+        const wordInput = document.querySelector('#word');
+        const countInput = document.querySelector('#order');
+        const result = document.querySelector('#result');
+
+        let word; //제시어
+        let newWord; //입력한 제시어
+
+        const onClickBtn = () => {
+            if(!word){ //제시어가 비어 있는지?
+                //빔
+                word = newWord;
+                wordInput.textContent = word;
+                txtValue.value = '';
+                txtValue.focus();
+                //현재 참가자가 몇번째인지
+                const countNum = Number(countInput.textContent);
+                if(countNum + 1 > number){
+                    countInput.textContent = 1;
+                }else{
+                    countInput.textContent = countNum + 1;
+                }
+            }else{
+                //안빔
+                if(word[word.length - 1] === newWord[0]){
+                    //올바름
+                    word = newWord;
+                    wordInput.textContent = word;
+                    txtValue.value = '';
+                    txtValue.focus();
+
+                    const countNum = Number(countInput.textContent);
+                    if(countNum + 1 > number){
+                        countInput.textContent = 1;
+                    }else{
+                        countInput.textContent = countNum + 1;
+                    }
+                }else{
+                    //올바르지 않음
+                    result.innerHTML = '당신은 틀렸어요.';
+                    txtValue.value = '';
+                    txtValue.focus();
+                }
+                
+            }
+        };
+
+        const onInput = (event) => {
+            newWord = event.target.value;
+            console.log(newWord);
+        };
+        btn.addEventListener('click', onClickBtn);
+        txtValue.addEventListener('input', onInput)
+    </script>
+</body>
+</html>
