@@ -80,8 +80,13 @@
           $result.value += event.target.textContent;
           return;
         }
-        //안비어있으면
+        if (!numOne && operator) {
+          numOne += -1 * event.target.textContent;
+          $result.value += -1 * event.target.textContent;
+          return;
+        }
         if (!numTwo) {
+          //안비어있으면
           //num two가 없으면 계산기 input 글자 지우기
           $result.value = "";
         }
@@ -104,7 +109,12 @@
           operator = op;
           $operator.value = op;
         } else {
-          alert("숫자 입력하세요.");
+          if (op === "-") {
+            operator = op;
+            numOne * -1;
+          } else {
+            alert("숫자 입력하세요.");
+          }
         }
 
         if (numTwo) {
