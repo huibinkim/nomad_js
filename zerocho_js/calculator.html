@@ -105,6 +105,21 @@
       document.querySelector("#num-9").addEventListener("click", onClickNumber);
 
       const onClickOperator = (op) => () => {
+        if (numTwo) {
+          // operator = op;
+          // $operator.value = op;
+          if (operator === "+") {
+            numOne = parseInt(numOne) + parseInt(numTwo);
+          } else if (operator === "-") {
+            numOne = parseInt(numOne) - parseInt(numTwo);
+          } else if (operator === "*") {
+            numOne = parseInt(numOne) * parseInt(numTwo);
+          } else if (operator === "/") {
+            numOne = parseInt(numOne) / parseInt(numTwo);
+          }
+          $result.value = numOne;
+          numTwo = "";
+        }
         if (numOne) {
           operator = op;
           $operator.value = op;
@@ -114,28 +129,6 @@
             numOne * -1;
           } else {
             alert("숫자 입력하세요.");
-          }
-        }
-
-        if (numTwo) {
-          operator = op;
-          $operator.value = op;
-          if (operator === "+") {
-            numOne = parseInt(numOne) + parseInt(numTwo);
-            $result.value = numOne;
-            numTwo = "";
-          } else if (operator === "-") {
-            numOne = numOne - numTwo;
-            numTwo = "";
-            $result.value = numOne;
-          } else if (operator === "*") {
-            numOne = numOne * numTwo;
-            numTwo = "";
-            $result.value = numOne;
-          } else if (operator === "/") {
-            numOne = numOne / numTwo;
-            numTwo = "";
-            $result.value = numOne;
           }
         }
       };
@@ -152,16 +145,17 @@
       document
         .querySelector("#multiply")
         .addEventListener("click", onClickOperator("*"));
+
       document.querySelector("#calculate").addEventListener("click", () => {
         if (numTwo) {
           if (operator === "+") {
             $result.value = parseInt(numOne) + parseInt(numTwo);
           } else if (operator === "-") {
-            $result.value = numOne - numTwo;
+            $result.value = parseInt(numOne) - parseInt(numTwo);
           } else if (operator === "*") {
-            $result.value = numOne * numTwo;
+            $result.value = parseInt(numOne) * parseInt(numTwo);
           } else if (operator === "/") {
-            $result.value = numOne / numTwo;
+            $result.value = parseInt(numOne) / parseInt(numTwo);
           }
           $operator.value = "";
           numOne = $result.value;
