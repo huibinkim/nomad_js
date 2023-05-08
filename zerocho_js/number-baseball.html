@@ -18,6 +18,74 @@
       const $form = document.querySelector("#form");
       const $logs = document.querySelector("#logs");
       const chkBtn = document.querySelector("button");
+
+      //배열을 써야하나, 객체를 써야하나?
+      // 단순히 값들을 모아놓기위해선 배열을 사용하고, 각각의 값들의 이름(속성)을 붙여 값들을 구분해야할때는 객체리터럴을 쓰면됨.
+
+      //for문 while문으로 표현
+      // let n = 0;
+      // while (n < 9) {
+      //   numbers.push(n + 1);
+      //   n = n + 1;
+      // }
+
+      const numbers = [];
+      for (let n = 0; n < 9; n += 1) {
+        numbers.push(n + 1);
+      }
+
+      const answer = [];
+      for (let n = 0; n < 4; n += 1) {
+        //4번 반복
+        const index = Math.floor(Math.random() * numbers.length); // 0~8 정수로 시작해서 1씩 줄어들게
+        answer.push(numbers[index]);
+        numbers.splice(index, 1);
+      }
+      console.log(answer);
+
+      const tries = []; //시도한 값들
+      //검사하는 코드
+      function checkInput(input) {
+        if (input.length !== 4) {
+          //길이가 4인지
+          return alert("4자리 숫자를 입력해 주세요"); //값 false;
+        }
+        if (new Set(input).size !== 4) {
+          //중복된 숫자가 있는지, new Set():중복이 있는지 확인하는 함수
+          return alert("중복되지 않게 입력하세요"); //값 false;
+        }
+        if (tries.includes(input)) {
+          return alert("이미 시도한 값입니다."); //값 false;
+        }
+        return true;
+      }
+
+      $form.addEventListener("submit", (e) => {
+        e.preventDefault(); //기본 동작 막기
+        const value = event.target[0].value;
+        event.target[0].value = "";
+        if (!checkInput(value)) {
+          //에러있는 경우, 값이 false
+        }
+        //위의 검사를 모두 통과했을 때
+        // if (checkInput(value)) {
+        if (answer.join("") === value) {
+          //join() : [3,4,2,4] => '3424'
+          $logs.textContent = "홈런";
+          return;
+        }
+        if (tries.length >= 9) {
+          const msg = document.createTextNode(
+            `패배!! 정답은 ${answer.join("")}`
+          );
+          $logs.appendChild(msg);
+          return;
+        }
+        tries.push(value);
+        // }
+        // else {에러있는 경우, 값이 false
+        // }
+      });
     </script>
   </body>
 </html>
