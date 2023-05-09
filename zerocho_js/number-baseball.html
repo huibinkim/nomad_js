@@ -116,24 +116,25 @@
               //숫자만 있음
               ball += 1;
             }
-          }
-          if (index <= -1) {
+            //화면에 뿌리기
+            $logs.append(
+              `${value}: ${strike} 스트라이크 ${ball} 볼`,
+              document.createElement("br")
+            );
+            tries.push(value);
+          } else {
             //4개모두 들어가지 않을때
             const outMsg = document.createTextNode(
               `아웃!!! 모두 틀렸습니다. 정답은 ${answer.join("")}`
             );
+            $logs.appendChild(outMsg);
             //reset btn 만들기
             resetBtn.innerHTML = "reset";
             document.body.appendChild(resetBtn);
             resetBtn.addEventListener("click", onReset);
           }
         }
-        //화면에 뿌리기
-        $logs.append(
-          `${value}: ${strike} 스트라이크 ${ball} 볼`,
-          document.createElement("br")
-        );
-        tries.push(value);
+
         // }
         // else {에러있는 경우, 값이 false
         // }
