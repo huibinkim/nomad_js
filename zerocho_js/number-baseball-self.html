@@ -51,7 +51,11 @@
         }
         return true;
       }
-
+      //아웃이나 패배시 멘트
+      function defeated() {
+        const msg = document.createTextNode(`패배!! 정답은 ${answer.join("")}`);
+        $logs.appendChild(msg);
+      }
       //reset 버튼 클릭 시
       function onReset() {
         answer.length = 0; //답 초기화
@@ -64,7 +68,10 @@
         console.log(answer);
         $logs.textContent = "";
         document.body.removeChild(resetBtn);
+        out = 0;
+        return;
       }
+      let out = 0;
 
       $form.addEventListener("submit", (e) => {
         e.preventDefault(); //기본 동작 막기
@@ -78,6 +85,7 @@
         if (answer.join("") === value) {
           //join() : [3,4,2,4] => '3424'
           $logs.textContent = "홈런";
+          $logs.style.color = "blue";
 
           //reset btn 만들기
           resetBtn.innerHTML = "reset";
@@ -87,10 +95,7 @@
         }
 
         if (tries.length >= 9) {
-          const msg = document.createTextNode(
-            `패배!! 정답은 ${answer.join("")}`
-          );
-          $logs.appendChild(msg);
+          defeated();
           return;
         }
 
@@ -107,25 +112,29 @@
               //숫자만 있음
               ball += 1;
             }
-            //화면에 뿌리기
-            $logs.append(
-              `${value}: ${strike} 스트라이크 ${ball} 볼`,
-              document.createElement("br")
-            );
-            tries.push(value);
-          } else {
-            //4개모두 들어가지 않을때
-            const outMsg = document.createTextNode(
-              `아웃!!! 모두 틀렸습니다. 정답은 ${answer.join("")}`
-            );
-            $logs.appendChild(outMsg);
-            //reset btn 만들기
-            resetBtn.innerHTML = "reset";
-            document.body.appendChild(resetBtn);
-            resetBtn.addEventListener("click", onReset);
           }
+          //화면에 뿌리기
         }
-
+        //4개모두 들어가지 않을때
+        //reset btn 만들기
+        if (strike === 0 && ball === 0) {
+          out += 1;
+          $logs.append(`${value} ${out}아웃`, document.createElement("br"));
+        } else {
+          $logs.append(
+            `${value}: ${strike} 스트라이크 ${ball} 볼`,
+            document.createElement("br")
+          );
+        }
+        if (out === 3) {
+          defeated();
+          $logs.style.color = "red";
+          resetBtn.innerHTML = "reset";
+          document.body.appendChild(resetBtn);
+          resetBtn.addEventListener("click", onReset);
+          return;
+        }
+        tries.push(value);
         // }
         // else {에러있는 경우, 값이 false
         // }
