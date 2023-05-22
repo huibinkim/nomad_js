@@ -47,10 +47,24 @@
       const bonus = shuffle[6];
       console.log(lottoNum, bonus);
 
+      function ballColor(number, $tag) {
+        if (number < 10) {
+          $tag.style.backgroundColor = "red";
+        } else if (number < 20) {
+          $tag.style.backgroundColor = "blue";
+        } else if (number < 30) {
+          $tag.style.backgroundColor = "pink";
+        } else if (number < 40) {
+          $tag.style.backgroundColor = "yellow";
+        } else if (40 <= number) {
+          $tag.style.backgroundColor = "green";
+        }
+      }
       const showBall = (number, $target) => {
         const $ball = document.createElement("div");
         $ball.className = "ball";
         $ball.textContent = number;
+        ballColor(number, $ball);
         $target.appendChild($ball);
       };
       for (let i = 0; i < lottoNum.length; i++) {
