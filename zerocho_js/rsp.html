@@ -50,42 +50,48 @@
         $computer.style.background = `url(${IMG_URL}) ${rspX[comChoice]} 0`;
         $computer.style.backgroundSize = "auto 200px";
       };
-      let interval = setInterval(changeHand, 100);
-
-      onClickBtn = () => {
-        clearInterval(interval);
-        if (comChoice === "scissors") {
-          //가위면
-          $score.textContent = 0;
-        } else if (comChoice === "paper") {
-          $score.textContent = 1;
-        } else {
-          $score.textContent = -1;
+      let intervalId = setInterval(changeHand, 50);
+      let clickable = true; //클릭을 해주고 안해주고,
+      const onClickBtn = () => {
+        clearInterval(intervalId);
+        if (clickable) {
+          if (comChoice === "scissors") {
+            //가위면
+            $score.textContent = 0;
+          } else if (comChoice === "paper") {
+            $score.textContent = 1;
+          } else {
+            $score.textContent = -1;
+          }
+          setTimeout(() => {
+            clearInterval(intervalId);
+            intervalId = setInterval(changeHand, 50);
+          }, 1000);
         }
       };
-      onClickRock = () => {
-        clearInterval(interval);
-        if (comChoice === "rock") {
-          $score.textContent = 0;
-        } else if (comChoice === "scissors") {
-          $score.textContent = 1;
-        } else {
-          $score.textContent = -1;
-        }
-      };
-      onClickPaper = () => {
-        clearInterval(interval);
-        if (comChoice === "paper") {
-          $score.textContent = 0;
-        } else if (comChoice === "rock") {
-          $score.textContent = 1;
-        } else {
-          $score.textContent = -1;
-        }
-      };
+      // onClickRock = () => {
+      //   clearInterval(interval);
+      //   if (comChoice === "rock") {
+      //     $score.textContent = 0;
+      //   } else if (comChoice === "scissors") {
+      //     $score.textContent = 1;
+      //   } else {
+      //     $score.textContent = -1;
+      //   }
+      // };
+      // onClickPaper = () => {
+      //   clearInterval(interval);
+      //   if (comChoice === "paper") {
+      //     $score.textContent = 0;
+      //   } else if (comChoice === "rock") {
+      //     $score.textContent = 1;
+      //   } else {
+      //     $score.textContent = -1;
+      //   }
+      // };
       $scissors.addEventListener("click", onClickBtn);
-      $rock.addEventListener("click", onClickRock);
-      $paper.addEventListener("click", onClickPaper);
+      $rock.addEventListener("click", onClickBtn);
+      $paper.addEventListener("click", onClickBtn);
 
       // function rsp() {
       //   while (true) {
