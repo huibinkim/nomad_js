@@ -56,12 +56,36 @@
         clearInterval(interval);
         if (comChoice === "scissors") {
           //가위면
+          $score.textContent = 0;
         } else if (comChoice === "rock") {
-          comChoice = "paper";
-        } else if (comChoice === "paper") {
-          comChoice = "scissors";
+          $score.textContent = 1;
+        } else {
+          $score.textContent = -1;
         }
       };
+      onClickRock = () => {
+        clearInterval(interval);
+        if (comChoice === "rock") {
+          $score.textContent = 0;
+        } else if (comChoice === "scissors") {
+          $score.textContent = 1;
+        } else {
+          $score.textContent = -1;
+        }
+      };
+      onClickPaper = () => {
+        clearInterval(interval);
+        if (comChoice === "paper") {
+          $score.textContent = 0;
+        } else if (comChoice === "rock") {
+          $score.textContent = 1;
+        } else {
+          $score.textContent = -1;
+        }
+      };
+      $scissors.addEventListener("click", onClickBtn);
+      $rock.addEventListener("click", onClickRock);
+      $paper.addEventListener("click", onClickPaper);
 
       // function rsp() {
       //   while (true) {
