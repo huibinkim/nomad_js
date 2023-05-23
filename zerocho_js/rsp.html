@@ -31,23 +31,67 @@
       $computer.style.background = `url(${IMG_URL}) 0 0`;
       $computer.style.backgroundSize = "auto 200px";
 
-      function rsp() {
-        while (true) {
-          if (($computer.style.background = `url(${IMG_URL}) 0 0`)) {
-            $computer.style.background = `url(${IMG_URL}) -232px 0`;
-            $computer.style.backgroundSize = "auto 200px";
-          } else if (($computer.style.background = `url(${IMG_URL} -232px 0`)) {
-            $computer.style.background = `url(${IMG_URL}) -440px 0`;
-            $computer.style.backgroundSize = "auto 200px";
-          } else if (
-            ($computer.style.background = `url(${IMG_URL}) -440px 0`)
-          ) {
-            $computer.style.background = `url(${IMG_URL}) 0 0`;
-            $computer.style.backgroundSize = "auto 200px";
-          }
+      const rspX = {
+        scissors: "0",
+        rock: "-232px",
+        paper: "-440px",
+      }; //좌표를 따로 객체로 묶는다.
+      let comChoice = "scissors";
+      const changeHand = () => {
+        if (comChoice === "scissors") {
+          //가위면
+          comChoice = "rock";
+        } else if (comChoice === "rock") {
+          comChoice = "paper";
+        } else if (comChoice === "paper") {
+          comChoice = "scissors";
         }
+        //rspX.comChoice는 안됨.
+        $computer.style.background = `url(${IMG_URL}) ${rspX[comChoice]} 0`;
+        $computer.style.backgroundSize = "auto 200px";
+      };
+      let interval = setInterval(changeHand, 100);
+
+      onClickBtn = () => {
+        clearInterval(interval);
+        if (comChoice === "scissors") {
+          //가위면
+        } else if (comChoice === "rock") {
+          comChoice = "paper";
+        } else if (comChoice === "paper") {
+          comChoice = "scissors";
+        }
+      };
+
+      // function rsp() {
+      //   while (true) {
+      //     if (($computer.style.background = `url(${IMG_URL}) 0 0`)) {
+      //       $computer.style.background = `url(${IMG_URL}) -232px 0`;
+      //       $computer.style.backgroundSize = "auto 200px";
+      //     } else if (($computer.style.background = `url(${IMG_URL} -232px 0`)) {
+      //       $computer.style.background = `url(${IMG_URL}) -440px 0`;
+      //       $computer.style.backgroundSize = "auto 200px";
+      //     } else if (
+      //       ($computer.style.background = `url(${IMG_URL}) -440px 0`)
+      //     ) {
+      //       $computer.style.background = `url(${IMG_URL}) 0 0`;
+      //       $computer.style.backgroundSize = "auto 200px";
+      //     }
+      //   }
+      // }
+
+      /*
+      setInterval(() => {
+        console.log("hello");
+      }, 1000);
+
+      위와 동일
+      function hello(){
+        console.log('hello');
+        setTimeout(hello,1000)
       }
-      const movingRSP = setInterval(rsp, 1000);
+      setTimeout(hello, 1000)
+      */
     </script>
   </body>
 </html>
