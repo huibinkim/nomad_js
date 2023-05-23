@@ -30,6 +30,24 @@
       const IMG_URL = "./rsp.png";
       $computer.style.background = `url(${IMG_URL}) 0 0`;
       $computer.style.backgroundSize = "auto 200px";
+
+      function rsp() {
+        while (true) {
+          if (($computer.style.background = `url(${IMG_URL}) 0 0`)) {
+            $computer.style.background = `url(${IMG_URL}) -232px 0`;
+            $computer.style.backgroundSize = "auto 200px";
+          } else if (($computer.style.background = `url(${IMG_URL} -232px 0`)) {
+            $computer.style.background = `url(${IMG_URL}) -440px 0`;
+            $computer.style.backgroundSize = "auto 200px";
+          } else if (
+            ($computer.style.background = `url(${IMG_URL}) -440px 0`)
+          ) {
+            $computer.style.background = `url(${IMG_URL}) 0 0`;
+            $computer.style.backgroundSize = "auto 200px";
+          }
+        }
+      }
+      const movingRSP = setInterval(rsp, 1000);
     </script>
   </body>
 </html>
