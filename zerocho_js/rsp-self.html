@@ -63,6 +63,7 @@
       const onClickBtn = () => {
         if (clickable) {
           clearInterval(intervalId);
+          clickable = false;
           const myChoice =
             event.target.textContent === "바위"
               ? "rock"
@@ -88,24 +89,24 @@
             score = score;
             scoreComputer = scoreComputer;
           }
-          $score.textContent = `
-          내 점수 :${score}점     
-          컴 점수 :${scoreComputer}점
-          `;
 
-          setTimeout(() => {
-            clearInterval(intervalId);
-            intervalId = setInterval(changeHand, 50);
-          }, 1000);
           //5판 3선승
-          if (score === 3) {
+          if (score >= 3) {
             $score.textContent = ` 나의 승리
               ${score} : ${scoreComputer}
           `;
-          } else if (score === 3) {
-            $score.textContent = ` 나의 승리
+          } else if (scoreComputer >= 3) {
+            $score.textContent = ` 컴의 승리
               ${score} : ${scoreComputer}
           `;
+          } else {
+            $score.textContent = `
+              ${score} : ${scoreComputer}
+          `;
+            setTimeout(() => {
+              clickable = true;
+              intervalId = setInterval(changeHand, 50);
+            }, 1000);
           }
         }
       };
