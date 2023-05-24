@@ -98,8 +98,14 @@
             intervalId = setInterval(changeHand, 50);
           }, 1000);
           //5판 3선승
-          if ([score, scoreComputer].includes(3)) {
-            clearInterval(intervalId);
+          if (score === 3) {
+            $score.textContent = ` 나의 승리
+              ${score} : ${scoreComputer}
+          `;
+          } else if (score === 3) {
+            $score.textContent = ` 나의 승리
+              ${score} : ${scoreComputer}
+          `;
           }
         }
       };
