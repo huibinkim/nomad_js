@@ -31,6 +31,17 @@
     <script>
       const $screen = document.querySelector("#screen");
       const $result = document.querySelector("#result");
+
+      $screen.addEventListener("click", (e) => {
+        if (e.target.classList.contains("waiting")) {
+          e.target.classList = "ready";
+        } else if (e.target.classList.contains("ready")) {
+          setTimeout(() => {
+            e.target.classList = "now";
+          }, 2000);
+        } else if (e.target.classList.contains("now")) {
+        }
+      });
     </script>
   </body>
 </html>
