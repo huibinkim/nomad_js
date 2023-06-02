@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>틱택토 게임</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      td {
+        border: 1px solid #000;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const { body } = document; //구조분해할당
+      const $table = document.createElement("table");
+      const $result = document.createElement("div");
+      const rows = [];
+      let turn = "O";
+
+      //배열안에 반복문으로 배열 넣기
+      //   for (let i = 0; i < 3; i++) {
+      //     data.push([]);
+      //   }
+
+      //칸 클릭 이벤트
+      const callBack = (e) => {
+        // event.stopPropagation(); 이벤트 버블링 현상 막기
+        //칸이 비었나?
+        if (e.target.textContent !== "") {
+          console.log("빈칸아니다.");
+          return;
+        }
+        //빈칸일 때
+        e.target.textContent = turn;
+        //승부확인
+        // turn = (turn === "O" )? "X" : "O"; //사망연산자로 표현
+        if (turn === "O") {
+          turn = "X";
+        } else if (turn === "X") {
+          turn = "O";
+        }
+      };
+      for (let i = 0; i < 3; i++) {
+        const $tr = document.createElement("tr");
+        const cells = [];
+        for (let i = 0; i < 3; i++) {
+          const $td = document.createElement("td");
+          cells.push($td);
+          //   $td.addEventListener("click", callBack);
+          $tr.append($td);
+        }
+        rows.push(cells);
+        $table.append($tr);
+      }
+      $table.addEventListener("click", callBack); //이벤트 버블링
+      //body에 table 추가
+      body.append($table);
+      body.append($result);
+
+      // obj를 구조분해 하세요
+      //   const obj = {
+      //     a: "hello",
+      //     b: {
+      //       c: "hi",
+      //       d: { e: "wow" },
+      //     },
+      //   };
+      //   const {
+      //     a,
+      //     b: {
+      //       c,
+      //       d: { e },
+      //     },
+      //   } = obj;
+    </script>
+  </body>
+</html>
