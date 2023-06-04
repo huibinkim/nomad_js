@@ -11,8 +11,8 @@
       }
       td {
         border: 1px solid #000;
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
         text-align: center;
       }
     </style>
@@ -72,6 +72,23 @@
         return hasWinner;
       };
 
+      const winAndDraw = (e) => {
+        //승부확인
+        const hasWinner = checkWinner(e);
+        if (hasWinner) {
+          $result.textContent = `${turn}님이 승리!`;
+          $table.removeEventListener("click", callBack); //승리하면 클릭안되게
+          return;
+        }
+        //무승부 검사
+        //9칸이 다 꽉차있으면 무승부이다. 이는 즉 한칸이라도 비어있으면 무승부가 아니다.
+        const draw = rows.flat().every((td) => td.textContent);
+        if (draw) {
+          $result.textContent = `무승부`;
+          return;
+        }
+        turn = turn === "X" ? "O" : "X";
+      };
       //칸 클릭 이벤트
       const callBack = (e) => {
         // event.stopPropagation(); 이벤트 버블링 현상 막기
@@ -84,29 +101,18 @@
         e.target.textContent = turn;
         console.log("빈칸임");
         //승부확인
-        const hasWinner = checkWinner(e.target);
-        if (hasWinner) {
-          $result.textContent = `${turn}님이 승리!`;
-          $table.removeEventListener("click", callBack); //승리하면 클릭안되게
-          return;
-        }
-        //무승부 검사
-        //9칸이 다 꽉차있으면 무승부이다. 이는 즉 한칸이라도 비어있으면 무승부가 아니다.
-        const draw = rows.flat().every((td) => td.textContent);
-        //flat(), every() : flat()은 이차원배열을 일차원으로 바꿔줌. every는 모두 차있으면 true, 일차원에서만 사용할 수 있어서 flat으로 만들고 every사용
-        //some() : 하나라도 차있으면 true
-        if (draw) {
-          $result.textContent = `무승부`;
-          return;
-        }
-
-        // turn = (turn === "O" )? "X" : "O"; //사망연산자로 표현
-        if (turn === "O") {
-          turn = "X";
-        } else if (turn === "X") {
-          turn = "O";
+        winAndDraw(e.target);
+        if (turn === "X") {
+          const emptyCell = rows.flat().filter((v) => !v.textContent);
+          //filter():조건에 해당하는 아이를 걸러준다. 일차원배열만 가능
+          const randomCell =
+            emptyCell[Math.floor(Math.random() * emptyCell.length)];
+          randomCell.textContent = "X";
+          const hasWinner = checkWinner(randomCell);
+          winAndDraw(e.target);
         }
       };
+      //칸 만들기
       for (let i = 0; i < 3; i++) {
         const $tr = document.createElement("tr");
         const cells = [];
@@ -123,22 +129,6 @@
       //body에 table 추가
       body.append($table);
       body.append($result);
-
-      // obj를 구조분해 하세요
-      //   const obj = {
-      //     a: "hello",
-      //     b: {
-      //       c: "hi",
-      //       d: { e: "wow" },
-      //     },
-      //   };
-      //   const {
-      //     a,
-      //     b: {
-      //       c,
-      //       d: { e },
-      //     },
-      //   } = obj;
     </script>
   </body>
 </html>
