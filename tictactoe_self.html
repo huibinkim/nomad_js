@@ -71,9 +71,8 @@
 
         return hasWinner;
       };
-
+      //승부확인 함수
       const winAndDraw = (e) => {
-        //승부확인
         const hasWinner = checkWinner(e);
         if (hasWinner) {
           $result.textContent = `${turn}님이 승리!`;
@@ -81,7 +80,6 @@
           return;
         }
         //무승부 검사
-        //9칸이 다 꽉차있으면 무승부이다. 이는 즉 한칸이라도 비어있으면 무승부가 아니다.
         const draw = rows.flat().every((td) => td.textContent);
         if (draw) {
           $result.textContent = `무승부`;
@@ -90,8 +88,11 @@
         turn = turn === "X" ? "O" : "X";
       };
       //칸 클릭 이벤트
+      let clickable = true;
       const callBack = (e) => {
-        // event.stopPropagation(); 이벤트 버블링 현상 막기
+        if (!clickable) {
+          return;
+        }
         //칸이 비었나?
         if (e.target.textContent !== "") {
           console.log("빈칸아니다.");
@@ -102,14 +103,19 @@
         console.log("빈칸임");
         //승부확인
         winAndDraw(e.target);
+        //컴터의 턴
         if (turn === "X") {
-          const emptyCell = rows.flat().filter((v) => !v.textContent);
-          //filter():조건에 해당하는 아이를 걸러준다. 일차원배열만 가능
-          const randomCell =
-            emptyCell[Math.floor(Math.random() * emptyCell.length)];
-          randomCell.textContent = "X";
-          const hasWinner = checkWinner(randomCell);
-          winAndDraw(e.target);
+          clickable = false;
+
+          setTimeout(() => {
+            const emptyCell = rows.flat().filter((v) => !v.textContent);
+            //filter():조건에 해당하는 아이를 걸러준다. 일차원배열만 가능
+            const randomCell =
+              emptyCell[Math.floor(Math.random() * emptyCell.length)];
+            randomCell.textContent = "X";
+            winAndDraw(randomCell);
+            clickable = true;
+          }, 1000);
         }
       };
       //칸 만들기
