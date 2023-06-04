@@ -29,6 +29,45 @@
       //   for (let i = 0; i < 3; i++) {
       //     data.push([]);
       //   }
+      //승자를 판단하는 함수
+      const checkWinner = (target) => {
+        let rowIndex;
+        let cellIndex;
+        rows.forEach((row, ri) => {
+          row.forEach((cell, ci) => {
+            if (cell === target) {
+              rowIndex = ri;
+              cellIndex = ci;
+            }
+          });
+        });
+        //세칸 다 채워졌나?
+        let hasWinner = false;
+        //가로줄 검사
+        if (
+          rows[rowIndex][0].textContent === turn &&
+          rows[rowIndex][1].textContent === turn &&
+          rows[rowIndex][2].textContent === turn
+        ) {
+          hasWinner = true;
+        }
+        //세로줄 검사
+        if (
+          rows[0][cellIndex].textContent === turn &&
+          rows[1][cellIndex].textContent === turn &&
+          rows[2][cellIndex].textContent === turn
+        ) {
+          hasWinner = true;
+        }
+        //대각선 검사
+        if (
+          rows[0][0][cellIndex].textContent === turn &&
+          rows[1][1][cellIndex].textContent === turn &&
+          rows[2][2][cellIndex].textContent === turn
+        ) {
+          hasWinner = true;
+        }
+      };
 
       //칸 클릭 이벤트
       const callBack = (e) => {
@@ -40,7 +79,9 @@
         }
         //빈칸일 때
         e.target.textContent = turn;
+        console.log("빈칸임");
         //승부확인
+        checkWinner(event.target);
         // turn = (turn === "O" )? "X" : "O"; //사망연산자로 표현
         if (turn === "O") {
           turn = "X";
