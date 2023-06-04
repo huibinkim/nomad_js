@@ -61,12 +61,21 @@
         }
         //대각선 검사
         if (
-          rows[0][0][cellIndex].textContent === turn &&
-          rows[1][1][cellIndex].textContent === turn &&
-          rows[2][2][cellIndex].textContent === turn
+          rows[0][0].textContent === turn &&
+          rows[1][1].textContent === turn &&
+          rows[2][2].textContent === turn
         ) {
           hasWinner = true;
         }
+        if (
+          rows[0][2].textContent === turn &&
+          rows[1][1].textContent === turn &&
+          rows[2][0].textContent === turn
+        ) {
+          hasWinner = true;
+        }
+
+        return hasWinner;
       };
 
       //칸 클릭 이벤트
@@ -81,7 +90,27 @@
         e.target.textContent = turn;
         console.log("빈칸임");
         //승부확인
-        checkWinner(event.target);
+        if (checkWinner(e.target)) {
+          $result.textContent = `${turn}님이 승리!`;
+          $table.removeEventListener("click", callBack); //승리하면 클릭안되게
+          return;
+        }
+        //무승부 검사
+        //9칸이 다 꽉차있으면 무승부이다. 이는 즉 한칸이라도 비어있으면 무승부가 아니다.
+        let draw = true;
+        rows.forEach((row) => {
+          row.forEach((cell) => {
+            if (!cell.textContent) {
+              //한칸이라도 비어있으면
+              draw = false; //무승부가 아니다.
+            }
+          });
+        });
+        if (draw) {
+          //무승부이면
+          $result.textContent = `무승부`;
+          return;
+        }
         // turn = (turn === "O" )? "X" : "O"; //사망연산자로 표현
         if (turn === "O") {
           turn = "X";
