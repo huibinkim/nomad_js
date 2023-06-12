@@ -73,6 +73,15 @@
         hp: 100,
         xp: 0,
         att: 10,
+        attack: function (monster) {
+          monster.hp -= this.att;
+          this.hp -= monster.att;
+        },
+        //this를 사용하기 위해서 화살표함수는 사용x
+        heal(monster) {
+          this.hp += 20;
+          this.hp -= monster.att;
+        },
       };
       let monster = null;
       const monsterList = [
@@ -104,19 +113,43 @@
           $battleMenu.style.display = "block";
           monster = JSON.parse(
             JSON.stringify(
-              monsterList[Math.floor(Math.random() * monsterList.length)]
-            )
+              monsterList(Math.floor[Math.random() * monsterList.length])
+            ) //JSON.parse(JSON.stringify()) 깊은복사
           );
           monster.maxHp = monster.hp;
           $monsterName.textContent = monster.name;
           $monsterHp.textContent = `HP : ${monster.hp}/${monster.maxHp}`;
           $monsterAtt.textContent = `ATT :${monster.att}`;
+
+          const monster1 = JSON.parse(JSON.stringify(monsterList[0]));
+          const monster2 = monsterList[0];
+          const monster3 = { ...monster[0] }; //얕은 복사 : 객체는 참조한다.
+          monster1.name = "새 몬스터";
+          console.log(monsterList[0].name);
+          monster2.name = "새 몬스터";
+          console.log(monsterList[0].name);
+          console.log(monsterList[0] === monster1); //false 깊은 복사
+          console.log(monsterList[0] === monster2); //true, 참조 관계
         } else if (input === "2") {
         } else if (input === "3") {
         }
       });
 
-      $battleMenu.addEventListener("submit", (e) => {});
+      $battleMenu.addEventListener("submit", (e) => {
+        const input = e.target["battle-input"].value;
+        if (input === "1") {
+          //공격
+          hero.attack(monster);
+          monster.attack(hero);
+          $heroHp.textContent = `Hp:${hero.hp}/${hero.maxHp}`;
+          $monsterHp.textContent = `HP : ${monster.hp}/${monster.maxHp}`;
+          $message.textContent = `${hero.att}의 데미지를 주고, ${monster.att}의 데미지를 받았습니다.`;
+        } else if (input === "2") {
+          //회복
+        } else if (input === "3") {
+          //도망
+        }
+      });
     </script>
   </body>
 </html>
