@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class Human {
+        constructor(name, age) {
+          this.name = name;
+          this.age = age;
+        }
+
+        sayName() {
+          console.log(this.name);
+        }
+        sayAge() {
+          console.log(this.age);
+        }
+      }
+      class Power extends Human {
+        constructor(name, age, language) {
+          super(name, age);
+          this.language = language;
+        }
+        writeCode() {
+          console.log(this.language.join());
+        }
+      }
+
+      const programmer = new Power('huibinkim', 30, ['html', 'css', 'js']);
+      programmer.writeCode();
+      programmer.sayAge();
+    </script>
+  </body>
+</html>
